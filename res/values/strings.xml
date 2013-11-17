@@ -8,8 +8,9 @@
     <string name="parent">Parent</string>
     <string name="initialMsg">You are a?</string>
     <string name="title_activity_child">ChildActivity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+    <string name="title_chores">Chores</string>
+    <string name="title_rewards">Rewards Tracker</string>
+    <string name="title_activity_chores">ChoresActivity</string>
+    <string name="title_activity_chores_fragment">ChoresFragment</string>
 
 </resources>

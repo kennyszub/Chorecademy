@@ -14,10 +14,9 @@ public class StartActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
-		
-        final Button parentButton = (Button) findViewById(R.id.parentButton);
         addListenerOnChildButton();
         //TODO
+        //final Button parentButton = (Button) findViewById(R.id.parentButton)
         //addListenerOnParentButton();
 
 	}

@@ -30,6 +30,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.berkeley.cs160.crappymalefemaleratio.chore.StartActivity" />
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.ChoresActivity"
+            android:label="@string/title_activity_chores" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.ChoresFragment"
+            android:label="@string/title_activity_chores_fragment" >
+        </activity>
     </application>
 
 </manifest>
