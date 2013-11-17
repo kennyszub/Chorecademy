@@ -134,6 +134,9 @@ public class ChildActivity extends FragmentActivity implements
 		@Override
 		public Fragment getItem(int position) {
 			switch(position) {
+			case 0:
+				Fragment choresFragment = new ChoresFragment();
+				return choresFragment;
 			case 1:
 				// TODO create a PointTrackerFragment
 				
@@ -145,9 +148,7 @@ public class ChildActivity extends FragmentActivity implements
 				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
 				return fragment;
-			case 0:
-				Fragment choresFragment = new ChoresFragment();
-				return choresFragment;
+			
 			}
 			return null;
 			
