@@ -13,5 +13,6 @@
     <string name="title_rewards">Rewards Tracker</string>
     <string name="title_activity_chores">ChoresActivity</string>
     <string name="title_activity_chores_fragment">ChoresFragment</string>
+    <string name="title_activity_add_chore">AddChoreActivity</string>
 
 </resources>
