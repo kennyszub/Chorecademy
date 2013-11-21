@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,7 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChildActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -77,7 +81,6 @@ public class ChildActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		
 	}
 
 	@Override
@@ -201,4 +204,21 @@ public class ChildActivity extends FragmentActivity implements
 		}
 	}
 
+    public void onClick(View v) {
+    	// Intent for the Detailed View of 1 Chore
+    	Intent intent = new Intent(getApplicationContext(), ChildDetailsActivity.class);
+    	// Access Row's values
+    	String chore_name, chore_description, chore_duedate, chore_points;
+    	chore_name = "Chore Name";
+    	chore_description = "Some Description";
+    	chore_duedate = "10/8";
+    	chore_points = "180";
+    	// Pass SESSION variables to be accessed in Detailed View
+    	intent.putExtra("CHORE_NAME", chore_name);
+    	intent.putExtra("CHORE_DESCRIPTION", chore_description);
+    	intent.putExtra("CHORE_DUEDATE", chore_duedate);
+    	intent.putExtra("CHORE_POINTS", chore_points);
+    	
+        startActivity(intent);
+	}
 }
