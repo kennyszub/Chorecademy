@@ -42,6 +42,14 @@
             android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.ChildDetailsActivity"
             android:label="@string/title_activity_child_details" >
         </activity>
+        <activity
+            android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.ParentActivity"
+            android:label="@string/title_activity_parent"
+            android:parentActivityName="edu.berkeley.cs160.crappymalefemaleratio.chore.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.berkeley.cs160.crappymalefemaleratio.chore.StartActivity" />
+        </activity>
     </application>
 
 </manifest>

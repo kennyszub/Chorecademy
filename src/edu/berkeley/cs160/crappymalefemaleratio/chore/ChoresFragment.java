@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,6 +41,8 @@ public class ChoresFragment extends Fragment {
         return rootView;
     }
     
+   
+    
     
     private void populateList() {
     	 
@@ -51,5 +56,28 @@ public class ChoresFragment extends Fragment {
             list.add(temp);
         }
     }
+    
+    private void addListenerOnDetailsButton(View view) {
+        final Button detailsButton = (Button) view.findViewById(R.id.detailsButton);
+		final Intent intent = new Intent(this.getActivity(), ChildDetailsActivity.class);
+        detailsButton.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		// Access Row's values
+            	String chore_name, chore_description, chore_duedate, chore_points;
+            	chore_name = "Chore Name";
+            	chore_description = "Some Description";
+            	chore_duedate = "10/8";
+            	chore_points = "180";
+            	// Pass SESSION variables to be accessed in Detailed View
+            	intent.putExtra("CHORE_NAME", chore_name);
+            	intent.putExtra("CHORE_DESCRIPTION", chore_description);
+            	intent.putExtra("CHORE_DUEDATE", chore_duedate);
+            	intent.putExtra("CHORE_POINTS", chore_points);
+
+                startActivity(intent);
+        	}
+        });
+	}
 
 }

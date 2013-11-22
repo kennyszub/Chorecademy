@@ -18,24 +18,25 @@
         android:text="@string/initialMsg"
         android:textSize="50sp" />
 
-    <Button
+     <Button
         android:id="@+id/childButton"
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:layout_below="@+id/textView1"
+        android:layout_above="@+id/parentButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:text="@string/child" 
+        android:layout_marginBottom="25dp"
+        android:text="@string/child"
         android:textSize="20sp" />
-
+     
     <Button
         android:id="@+id/parentButton"
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:layout_below="@+id/childButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:text="@string/parent" 
+        android:layout_alignLeft="@+id/childButton"
+        android:layout_alignParentBottom="true"
+        android:text="@string/parent"
         android:textSize="20sp" />
+
+   
 
 </RelativeLayout>
