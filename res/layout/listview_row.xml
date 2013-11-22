@@ -5,7 +5,7 @@
 >
     
      <TextView
-        android:id="@+id/FirstText"
+        android:id="@+id/Chore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Chore"
@@ -13,7 +13,7 @@
     </TextView>
      
     <TextView
-        android:id="@+id/SecondText"
+        android:id="@+id/Date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Due Date"
@@ -21,7 +21,7 @@
     </TextView>
      
     <TextView
-        android:id="@+id/ThirdText"
+        android:id="@+id/Points"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Points"

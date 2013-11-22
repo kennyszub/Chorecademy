@@ -7,7 +7,7 @@
     <string name="child">Child</string>
     <string name="parent">Parent</string>
     <string name="initialMsg">You are a?</string>
-    <string name="title_activity_child">ChildActivity</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="title_activity_child_details">ChildDetailsActivity</string>
     <string name="title_chores">Chores</string>
     <string name="title_rewards">Rewards Tracker</string>

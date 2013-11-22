@@ -1,5 +1,8 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHILD;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.PARENT;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +25,8 @@ public class StartActivity extends Activity {
 	
 	private void addListenerOnChildButton() {
         final Button childButton = (Button) findViewById(R.id.childButton);
-		final Intent i = new Intent(this, ChildActivity.class);
-    	i.putExtra("mode", "child");
+		final Intent i = new Intent(this, ScheduleActivity.class);
+    	i.putExtra(MODE, CHILD);
 
     	
         childButton.setOnClickListener(new OnClickListener() {
@@ -37,8 +40,8 @@ public class StartActivity extends Activity {
 	private void addListenerOnParentButton() {
 
 		final Button parentButton = (Button) findViewById(R.id.parentButton);
-		final Intent i = new Intent(this, ChildActivity.class);
-    	i.putExtra("mode", "parent");
+		final Intent i = new Intent(this, ScheduleActivity.class);
+    	i.putExtra(MODE, PARENT);
 
 		parentButton.setOnClickListener(new OnClickListener() {
 			@Override

@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
 
-public class ChildDetailsActivity extends Activity {
+public class ChoreDetailsActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_child_details);
+		setContentView(R.layout.activity_chore_details);
 		
 		Bundle session = getIntent().getExtras();
 		if (session != null) {

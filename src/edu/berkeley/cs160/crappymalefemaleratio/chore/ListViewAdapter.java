@@ -1,10 +1,11 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,26 +27,23 @@ public class ListViewAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return list.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
 	private class ViewHolder {
-         TextView txtFirst;
-         TextView txtSecond;
-         TextView txtThird;
+         TextView chore;
+         TextView date;
+         TextView points;
     }
 
 	@Override
@@ -58,9 +56,9 @@ public class ListViewAdapter extends BaseAdapter {
         {
             convertView = inflater.inflate(R.layout.listview_row, null);
             holder = new ViewHolder();
-            holder.txtFirst = (TextView) convertView.findViewById(R.id.FirstText);
-            holder.txtSecond = (TextView) convertView.findViewById(R.id.SecondText);
-            holder.txtThird = (TextView) convertView.findViewById(R.id.ThirdText);
+            holder.chore = (TextView) convertView.findViewById(R.id.Chore);
+            holder.date = (TextView) convertView.findViewById(R.id.Date);
+            holder.points = (TextView) convertView.findViewById(R.id.Points);
             convertView.setTag(holder);
         }
         else
@@ -72,16 +70,16 @@ public class ListViewAdapter extends BaseAdapter {
         addListenerOnDetailsButton(detailsButton);
 
         HashMap<String, String> map = list.get(position);
-        holder.txtFirst.setText(map.get("First"));
-        holder.txtSecond.setText(map.get("Second"));
-        holder.txtThird.setText(map.get("Third"));
+        holder.chore.setText(map.get(CHORE));
+        holder.date.setText(map.get(DATE));
+        holder.points.setText(map.get(POINTS));
 
         return convertView;
 	}
 	
 	
 	 private void addListenerOnDetailsButton(Button detailsButton) {
-		final Intent intent = new Intent(activity, ChildDetailsActivity.class);
+		final Intent intent = new Intent(activity, ChoreDetailsActivity.class);
         detailsButton.setOnClickListener(new OnClickListener() {
         	@Override
         	public void onClick(View v) {
