@@ -22,6 +22,9 @@ public class StartActivity extends Activity {
 	private void addListenerOnChildButton() {
         final Button childButton = (Button) findViewById(R.id.childButton);
 		final Intent i = new Intent(this, ChildActivity.class);
+    	i.putExtra("mode", "child");
+
+    	
         childButton.setOnClickListener(new OnClickListener() {
         	@Override
         	public void onClick(View v) {
@@ -32,7 +35,9 @@ public class StartActivity extends Activity {
 	
 	private void addListenerOnParentButton() {
 		final Button parentButton = (Button) findViewById(R.id.parentButton);
-		final Intent i = new Intent(this, ParentActivity.class);
+		final Intent i = new Intent(this, ChildActivity.class);
+    	i.putExtra("mode", "parent");
+
 		parentButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

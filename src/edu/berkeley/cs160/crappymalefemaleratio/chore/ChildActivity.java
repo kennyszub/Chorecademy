@@ -39,6 +39,7 @@ public class ChildActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	private String mode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,9 @@ public class ChildActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
+		
+		Bundle bundle = getIntent().getExtras();
+		mode = bundle.getString("mode");
 	}
 
 	@Override
@@ -140,6 +144,10 @@ public class ChildActivity extends FragmentActivity implements
 			switch(position) {
 			case 0:
 				Fragment choresFragment = new ChoresFragment();
+				Bundle settings = new Bundle();
+				settings.putString("mode", mode);
+				choresFragment.setArguments(settings);
+				
 				return choresFragment;
 			case 1:
 				// TODO create a PointTrackerFragment

@@ -18,5 +18,6 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_add_chore">AddChoreActivity</string>
+    <string name="add_chore_text">Add Chore</string>
 
 </resources>
