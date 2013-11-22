@@ -43,8 +43,20 @@
             android:label="@string/title_activity_child_details" >
         </activity>
         <activity
+            android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.ParentActivity"
+            android:label="@string/title_activity_parent"
+            android:parentActivityName="edu.berkeley.cs160.crappymalefemaleratio.chore.StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.berkeley.cs160.crappymalefemaleratio.chore.StartActivity" />
+        </activity>
+        <activity
             android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.AddChoreActivity"
             android:label="@string/title_activity_add_chore" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.SetReward"
+            android:label="@string/title_activity_set_reward" >
         </activity>
     </application>
 

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,6 +23,8 @@ public class ChoresFragment extends Fragment {
     Activity activity;
     
     private ArrayList<HashMap<String, String>> list;
+    
+    private String mode;
 
     
 	public ChoresFragment() {
@@ -28,7 +33,17 @@ public class ChoresFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_chores_fragment, container, false); 
+    	Bundle settings = this.getArguments();
+    	mode = settings.getString("mode");
+    	
+    	View rootView;
+    	if (mode.equals("child")) {
+    		// Use child chores fragment
+    		rootView = inflater.inflate(R.layout.activity_chores_fragment, container, false);
+    	} else {
+    		// Use parent chores fragment
+    		rootView = inflater.inflate(R.layout.activity_parent_chores_fragment, container, false);
+    	}
         activity = this.getActivity();
         ListView lview = (ListView) rootView.findViewById(R.id.listview);
         populateList();
@@ -37,6 +52,8 @@ public class ChoresFragment extends Fragment {
         
         return rootView;
     }
+    
+   
     
     
     private void populateList() {
@@ -51,5 +68,6 @@ public class ChoresFragment extends Fragment {
             list.add(temp);
         }
     }
+
 
 }

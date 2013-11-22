@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ListViewAdapter extends BaseAdapter {
 	public ArrayList<HashMap<String, String>> list;
-    Activity activity;
+    private Activity activity;
  
     public ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list) {
         super();
@@ -64,6 +67,9 @@ public class ListViewAdapter extends BaseAdapter {
         {
             holder = (ViewHolder) convertView.getTag();
         }
+        
+        Button detailsButton = (Button) convertView.findViewById(R.id.detailsButton);
+        addListenerOnDetailsButton(detailsButton);
 
         HashMap<String, String> map = list.get(position);
         holder.txtFirst.setText(map.get("First"));
@@ -71,6 +77,29 @@ public class ListViewAdapter extends BaseAdapter {
         holder.txtThird.setText(map.get("Third"));
 
         return convertView;
+	}
+	
+	
+	 private void addListenerOnDetailsButton(Button detailsButton) {
+		final Intent intent = new Intent(activity, ChildDetailsActivity.class);
+        detailsButton.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(View v) {
+        		// Access Row's values
+            	String chore_name, chore_description, chore_duedate, chore_points;
+            	chore_name = "Chore Name";
+            	chore_description = "Some Description";
+            	chore_duedate = "10/8";
+            	chore_points = "180";
+            	// Pass SESSION variables to be accessed in Detailed View
+            	intent.putExtra("CHORE_NAME", chore_name);
+            	intent.putExtra("CHORE_DESCRIPTION", chore_description);
+            	intent.putExtra("CHORE_DUEDATE", chore_duedate);
+            	intent.putExtra("CHORE_POINTS", chore_points);
+
+                activity.startActivity(intent);
+        	}
+        });
 	}
 
 }

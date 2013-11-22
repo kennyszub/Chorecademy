@@ -13,6 +13,12 @@
     <string name="title_rewards">Rewards Tracker</string>
     <string name="title_activity_chores">ChoresActivity</string>
     <string name="title_activity_chores_fragment">ChoresFragment</string>
+    <string name="title_activity_parent">ParentActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
     <string name="title_activity_add_chore">AddChoreActivity</string>
+    <string name="add_chore_text">Add Chore</string>
+    <string name="title_activity_set_reward">SetReward</string>
 
 </resources>
