@@ -56,13 +56,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout1"
-        android:layout_above="@+id/addChore"
+        android:layout_above="@+id/addChoreButton"
         android:paddingLeft="@dimen/activity_horizontal_margin" >
 
     </ListView>
 
     <Button
-        android:id="@+id/addChore"
+        android:id="@+id/addChoreButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
