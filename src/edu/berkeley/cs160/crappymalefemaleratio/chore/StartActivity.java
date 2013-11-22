@@ -15,6 +15,7 @@ public class StartActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
         addListenerOnChildButton();
+        addListenerOnParentButton();
         //TODO
         //final Button parentButton = (Button) findViewById(R.id.parentButton)
         //addListenerOnParentButton();
@@ -30,6 +31,10 @@ public class StartActivity extends Activity {
         		startActivity(i);
         	}
         });
+	}
+	
+	private void addListenerOnParentButton() {
+
 	}
 
 	@Override
