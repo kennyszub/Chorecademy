@@ -66,9 +66,6 @@ public class ListViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        Button detailsButton = (Button) convertView.findViewById(R.id.detailsButton);
-        addListenerOnDetailsButton(detailsButton);
-
         HashMap<String, String> map = list.get(position);
         holder.chore.setText(map.get(CHORE));
         holder.date.setText(map.get(DATE));
@@ -78,6 +75,7 @@ public class ListViewAdapter extends BaseAdapter {
 	}
 	
 	
+	// TODO move onClick code to on row Clicked
 	 private void addListenerOnDetailsButton(Button detailsButton) {
 		final Intent intent = new Intent(activity, ChoreDetailsActivity.class);
         detailsButton.setOnClickListener(new OnClickListener() {
