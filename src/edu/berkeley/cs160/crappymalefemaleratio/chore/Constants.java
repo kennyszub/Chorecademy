@@ -9,6 +9,7 @@ public class Constants {
 	    public static final String MODE = "MODE";
 	    public static final String PARENT = "PARENT";
 	    public static final String CHILD = "CHILD";
+	    public static final String DESCRIPTION = "DESCRIPTION";
 
 	    
 	}

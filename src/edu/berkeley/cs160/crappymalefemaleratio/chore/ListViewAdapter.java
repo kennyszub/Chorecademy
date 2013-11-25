@@ -69,33 +69,14 @@ public class ListViewAdapter extends BaseAdapter {
         HashMap<String, String> map = list.get(position);
         holder.chore.setText(map.get(CHORE));
         holder.date.setText(map.get(DATE));
+        // make due date Today red
+        if (map.get(DATE).equals("Today")) {
+        	holder.date.setTextColor(activity.getResources().getColor(R.color.OrangeRed));
+        }
+        
         holder.points.setText(map.get(POINTS));
 
         return convertView;
-	}
-	
-	
-	// TODO move onClick code to on row Clicked
-	 private void addListenerOnDetailsButton(Button detailsButton) {
-		final Intent intent = new Intent(activity, ChoreDetailsActivity.class);
-        detailsButton.setOnClickListener(new OnClickListener() {
-        	@Override
-        	public void onClick(View v) {
-        		// Access Row's values
-            	String chore_name, chore_description, chore_duedate, chore_points;
-            	chore_name = "Chore Name";
-            	chore_description = "Some Description";
-            	chore_duedate = "10/8";
-            	chore_points = "180";
-            	// Pass SESSION variables to be accessed in Detailed View
-            	intent.putExtra("CHORE_NAME", chore_name);
-            	intent.putExtra("CHORE_DESCRIPTION", chore_description);
-            	intent.putExtra("CHORE_DUEDATE", chore_duedate);
-            	intent.putExtra("CHORE_POINTS", chore_points);
-
-                activity.startActivity(intent);
-        	}
-        });
 	}
 
 }
