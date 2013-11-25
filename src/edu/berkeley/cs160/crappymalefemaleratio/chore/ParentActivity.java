@@ -1,5 +1,5 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.*;
 
 import java.util.Locale;
 
@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class ScheduleActivity extends FragmentActivity implements
+public class ParentActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	/**
@@ -36,12 +36,11 @@ public class ScheduleActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
-	private String mode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_schedule);
+		setContentView(R.layout.activity_parent);
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
@@ -79,9 +78,6 @@ public class ScheduleActivity extends FragmentActivity implements
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
 					.setTabListener(this));
 		}
-		
-		Bundle bundle = getIntent().getExtras();
-		mode = bundle.getString(MODE);
 	}
 
 	@Override
@@ -142,7 +138,7 @@ public class ScheduleActivity extends FragmentActivity implements
 			case 0:
 				Fragment choresFragment = new ChoresFragment();
 				Bundle settings = new Bundle();
-				settings.putString(MODE, mode);
+				settings.putString(MODE, PARENT);
 				choresFragment.setArguments(settings);
 				
 				return choresFragment;

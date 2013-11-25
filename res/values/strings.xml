@@ -20,5 +20,6 @@
     <string name="title_activity_add_chore">AddChoreActivity</string>
     <string name="add_chore_text">Add Chore</string>
     <string name="title_activity_set_reward">SetReward</string>
+    <string name="title_activity_child">ChildActivity</string>
 
 </resources>

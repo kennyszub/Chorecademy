@@ -36,11 +36,12 @@ public class ChoresFragment extends Fragment {
     	
         activity = this.getActivity();
     	View rootView;
+    	
+		// Use child chores fragment
     	if (mode.equals(CHILD)) {
-    		// Use child chores fragment
     		rootView = inflater.inflate(R.layout.activity_child_chores_fragment, container, false);
+    	// Use parent chores fragment
     	} else {
-    		// Use parent chores fragment
     		rootView = inflater.inflate(R.layout.activity_parent_chores_fragment, container, false);
     		addListenerOnAddChoreButton(rootView);
     	}
@@ -75,6 +76,7 @@ public class ChoresFragment extends Fragment {
             temp.put(DATE, "October " + Integer.toString(i));
             temp.put(POINTS, "" + Integer.toString(i));
             list.add(temp);
+            
         }
     }
 
