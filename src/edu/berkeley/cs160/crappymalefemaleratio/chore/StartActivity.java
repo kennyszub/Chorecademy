@@ -16,7 +16,6 @@ public class StartActivity extends Activity {
 		setContentView(R.layout.activity_start);
         addListenerOnChildButton();
         addListenerOnParentButton();
-
 	}
 	
 	private void addListenerOnChildButton() {

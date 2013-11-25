@@ -1,34 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
->
-    
-     <TextView
-        android:id="@+id/Chore"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Do the Laundry"
-        android:textSize="25dip"
-        android:layout_weight="1">
-    </TextView>
-     
-    <TextView
-        android:id="@+id/Date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Tuesday"
-        android:textSize="25dip"
-        android:layout_weight="1">
-    </TextView>
-     
+    android:layout_height="fill_parent" >
+
     <TextView
         android:id="@+id/Points"
-        android:layout_width="52dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Chore"
+        android:layout_alignBottom="@+id/Chore"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="36dp"
         android:text="10"
-        android:textSize="25dip" >
+        android:textColor="@color/OrangeRed"
+        android:textSize="25dip" />
 
-    </TextView>
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Chore"
+        android:layout_below="@+id/Chore"
+        android:paddingBottom="5dip"
+        android:text="Due Tuesday"
+        android:textColor="@color/LightSlateGray" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/Chore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:text="Do Laundry"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="25dip" />
+
+</RelativeLayout>
+
+
+
+
+

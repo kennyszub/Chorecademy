@@ -15,12 +15,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/Chore"
         android:ems="10"
         android:hint="Clean your room!" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/Chore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText1"
@@ -29,7 +29,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/Points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -43,12 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/Points"
         android:ems="10"
         android:hint="Make your bed and put your toys away" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -73,7 +73,7 @@
         android:layout_above="@+id/dueDateButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/Date"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
