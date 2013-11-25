@@ -81,12 +81,18 @@ public class ChoresFragment extends Fragment {
         
         
         // TEMP VALUES
-    	HashMap<String, String> laundry = new HashMap<String, String>();
-    	laundry.put(CHORE,"Do the Laundry");
-    	laundry.put(DESCRIPTION, "Wash your clothes, put them in the dryer, and fold them.");
-        laundry.put(DATE, "Today");
-        laundry.put(POINTS, "5");
-        list.add(laundry);
+        
+        // TODO temp hack to remove laundry
+        Bundle settings = this.getArguments();
+        if (settings.getString("Laundry") == null) {
+	    	HashMap<String, String> laundry = new HashMap<String, String>();
+	    	laundry.put(CHORE,"Do the Laundry");
+	    	laundry.put(DESCRIPTION, "Wash your clothes, put them in the dryer, and fold them.");
+	        laundry.put(DATE, "Today");
+	        laundry.put(POINTS, "5");
+	        list.add(laundry);
+        }
+        
         
         HashMap<String, String> dishes = new HashMap<String, String>();
     	dishes.put(CHORE,"Wash the dishes");

@@ -120,6 +120,16 @@ public class ChildActivity extends FragmentActivity implements
 				Fragment choresFragment = new ChoresFragment();
 				Bundle settings = new Bundle();
 				settings.putString(MODE, CHILD);
+				
+				// TODO temp hack to remove laundry
+				if (getIntent().getStringExtra("Laundry") != null) {
+					Bundle session = getIntent().getExtras();
+					if (session.containsKey("Laundry")) {
+						settings.putString("Laundry", "Done");
+					}
+				}
+				//TODO end hack
+
 				choresFragment.setArguments(settings);
 				
 				return choresFragment;

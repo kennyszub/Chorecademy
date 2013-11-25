@@ -1,10 +1,17 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.*;
 
 
 public class ChoreDetailsActivity extends Activity {
@@ -14,6 +21,28 @@ public class ChoreDetailsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chore_details);
 		
+		setTextValues();
+		addListenerOnDoneButton();
+	}
+	
+	private void addListenerOnDoneButton() {
+		final Button doneButton = (Button) findViewById(R.id.doneButton);
+		final Intent i = new Intent(this, ChildActivity.class);
+		
+		// TODO remove temporary hack after prototype demo
+		i.putExtra("Laundry", "Done");
+		// TODO end hack
+		
+		
+		doneButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(i);
+			}
+		});
+	}
+	
+	private void setTextValues() {
 		Bundle session = getIntent().getExtras();
 		if (session != null) {
 			// Grab SESSION variables
@@ -39,7 +68,7 @@ public class ChoreDetailsActivity extends Activity {
 		    if (chore_duedate.equals("Today")) {
 		    	choreDuedate.setTextColor(this.getResources().getColor(R.color.OrangeRed));
 		    }
-		}  
+		}
 	}
 	
 	@Override
