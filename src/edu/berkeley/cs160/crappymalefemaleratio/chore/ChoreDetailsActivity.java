@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ChoreDetailsActivity extends Activity {
@@ -23,6 +24,18 @@ public class ChoreDetailsActivity extends Activity {
 		
 		setTextValues();
 		addListenerOnDoneButton();
+		takePictureListener();
+	}
+	private void takePictureListener(){
+	 	/* Take Picture Mode */
+	    final Button pic_button = (Button) findViewById(R.id.takePicButton);
+	    pic_button.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+         	 		Toast.makeText(getApplicationContext(), "Picture Mode", Toast.LENGTH_SHORT).show();
+		            Intent picmode = new Intent(ChoreDetailsActivity.this.getApplicationContext(), PictureActivity.class);
+		            startActivity(picmode);
+             }
+	    });
 	}
 	
 	private void addListenerOnDoneButton() {

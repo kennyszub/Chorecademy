@@ -65,7 +65,7 @@
         android:text="I&apos;m Done!" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/takePicButton"
         style="@style/BlueStyleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
