@@ -1,0 +1,98 @@
+package edu.berkeley.cs160.crappymalefemaleratio.chore;
+
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHILD;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_REWARD;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_VALUE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_CLAIM;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+
+public class ClaimsFragment extends Fragment {
+    private Activity activity;
+    private ArrayList<HashMap<String, String>> list;
+    private String mode;
+    
+	public ClaimsFragment() {
+	}
+	
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+    	Bundle settings = this.getArguments();
+    	mode = settings.getString(MODE);
+    	
+        activity = this.getActivity();
+    	View rootView;
+    	ListView lview;
+    	
+		rootView = inflater.inflate(R.layout.activity_child_claims_fragment, container, false);
+        lview = (ListView) rootView.findViewById(R.id.claims_listview);
+        populateList();
+        ClaimsListViewAdapter adapter = new ClaimsListViewAdapter(this.getActivity(), list);
+        lview.setAdapter(adapter);
+        lview.setOnItemClickListener(new ItemClickListener());
+        return rootView;
+    }
+    
+    
+    /** Populate list items. */
+    private void populateList() {
+    	 
+        list = new ArrayList<HashMap<String, String>>();
+        
+        // TEMP VALUES
+        // TODO temp hack to remove iPad
+        Bundle settings = this.getArguments();
+        if (settings.getString("iPad") == null) {
+            HashMap<String, String> ipad = new HashMap<String, String>();
+            ipad.put(CLAIMED_REWARD,"iPad");
+            ipad.put(CLAIMED_VALUE, "400 Points");
+            ipad.put(CLAIMED_CLAIM, "false");
+            list.add(ipad);
+        }
+        
+        HashMap<String, String> ps3 = new HashMap<String, String>();
+        ps3.put(CLAIMED_REWARD,"PS3");
+        ps3.put(CLAIMED_VALUE, "300 Points");
+        ps3.put(CLAIMED_CLAIM, "false");
+        list.add(ps3);
+
+        HashMap<String, String> legos = new HashMap<String, String>();
+        legos.put(CLAIMED_REWARD,"Lego Set");
+        legos.put(CLAIMED_VALUE, "100 Points");
+        legos.put(CLAIMED_CLAIM, "false");
+        list.add(legos);
+
+    }
+    
+    private class ItemClickListener implements OnItemClickListener {
+    	@Override
+    	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    		
+    	}
+    }
+    
+    
+
+
+}

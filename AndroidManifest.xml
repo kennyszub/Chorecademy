@@ -36,6 +36,14 @@
             android:label="@string/title_activity_chores_fragment" >
         </activity>
         <activity
+            android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.RewardsFragment"
+            android:label="@string/title_activity_rewards_fragment" >
+        </activity>
+        <activity
+            android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.ClaimsFragment"
+            android:label="@string/title_activity_claims_fragment" >
+        </activity>
+        <activity
             android:name="edu.berkeley.cs160.crappymalefemaleratio.chore.ChoreDetailsActivity"
             android:label="@string/title_activity_child_details" >
         </activity>

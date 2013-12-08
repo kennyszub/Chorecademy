@@ -2,6 +2,7 @@ package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -52,6 +53,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			public void onClick(View v) {
 				//start main parent activity
 				//save current chore data
+				HashMap<String, String> ourMap = getFieldData();
 			}
 		});
 		
@@ -154,6 +156,22 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 	public String getDateAsText() {
 		return this.dateText;
 	}
+	
+	public HashMap<String, String> getFieldData() {
+		HashMap<String, String> ourMap = new HashMap<String, String>();
+		TextView name, description, points;
+		name = (TextView) findViewById(R.id.editText1);
+		description = (TextView) findViewById(R.id.editText2);
+		
+		
+		ourMap.put("name", name.getText().toString());
+		ourMap.put("description", description.getText().toString());
+		ourMap.put("date", dateText );
+		
+		System.out.println(ourMap.keySet());
+		System.out.println(ourMap.values());
+		return ourMap;
+	}
 
 	
 	public static class DatePickerFragment extends DialogFragment {
@@ -188,5 +206,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			
 		}
 	}
+	
+	
 
 }

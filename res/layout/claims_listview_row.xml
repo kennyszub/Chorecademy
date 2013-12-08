@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/Claimed_Claim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:paddingRight="4dp"
+        android:text="Pending"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="15dip" />
+    
+    <TextView
+        android:id="@+id/Claimed_Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Claimed_Reward"
+        android:layout_below="@+id/Claimed_Reward"
+        android:paddingBottom="5dip"
+        android:text="100"
+        android:textColor="@color/LightSlateGray" />
+
+    <TextView
+        android:id="@+id/Claimed_Reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:text="PS3"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="25dip" />
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
