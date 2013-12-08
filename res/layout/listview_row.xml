@@ -48,9 +48,8 @@
         android:textColor="@color/OrangeRed"
         android:textSize="25dip" />
 
+
+
+
 </RelativeLayout>
-
-
-
-
 

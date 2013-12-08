@@ -3,13 +3,16 @@ package edu.berkeley.cs160.crappymalefemaleratio.chore;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHILD;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -79,19 +82,32 @@ public class ChoresFragment extends Fragment {
     	 
         list = new ArrayList<HashMap<String, String>>();
         
+        JSONArray chores = DataModel.getChores(activity);
+        JSONObject choreObject;
         
+        try {
+	        for (int i = 0; i < chores.length(); i++) {
+	        	choreObject = chores.getJSONObject(i);
+	        	HashMap<String, String> chore = new HashMap<String, String>();
+	        	chore.put(CHORE, choreObject.getString("name"));
+	        	chore.put(DESCRIPTION, choreObject.getString("description"));
+	        	chore.put(DATE, choreObject.getString("date"));
+	        	chore.put(POINTS, choreObject.getString("points"));
+	        	list.add(chore);
+	        }
+        } catch (JSONException e) {
+        	System.err.println("ERROR: Failed to populate list: " + e.getMessage());
+	    	System.exit(1);
+        }
         // TEMP VALUES
         
-        // TODO temp hack to remove laundry
-        Bundle settings = this.getArguments();
-        if (settings.getString("Laundry") == null) {
-	    	HashMap<String, String> laundry = new HashMap<String, String>();
-	    	laundry.put(CHORE,"Do the Laundry and some other stuff");
-	    	laundry.put(DESCRIPTION, "Wash your clothes, put them in the dryer, and fold them.");
-	        laundry.put(DATE, "Today");
-	        laundry.put(POINTS, "5");
-	        list.add(laundry);
-        }
+      /*
+    	HashMap<String, String> laundry = new HashMap<String, String>();
+    	laundry.put(CHORE,"Do the Laundry and some other stuff");
+    	laundry.put(DESCRIPTION, "Wash your clothes, put them in the dryer, and fold them.");
+        laundry.put(DATE, "Today");
+        laundry.put(POINTS, "5");
+        list.add(laundry);
         
         
         HashMap<String, String> dishes = new HashMap<String, String>();
@@ -114,6 +130,7 @@ public class ChoresFragment extends Fragment {
         bathroom.put(DATE, "Thursday");
         bathroom.put(POINTS, "4");
         list.add(bathroom);
+        */
     }
     
     private class ItemClickListener implements OnItemClickListener {

@@ -2,7 +2,9 @@ package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -10,7 +12,9 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
+
 import android.content.DialogInterface;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
@@ -25,12 +29,14 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class AddChoreActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 	Button addChore;
 	RelativeLayout currentView;
-	public GregorianCalendar dueDate;
-	public String dateText;
+	private GregorianCalendar dueDate;
+	private String dateText;
+	private Context context;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +45,12 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		setAddChoreOnClick();
 		setDatePickerOnClick();
 		setTimePickerOnClick();
+
 		setPointPickerOnClick();
 		
+
+		context = this;
+
 		
 	}
 
@@ -57,10 +67,26 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		//add intent for going back to main parent
 		addChore.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				//start main parent activity
-				//save current chore data
-				HashMap<String, String> ourMap = getFieldData();
+			public void onClick(View v) {				
+				JSONObject choreInfo = getFieldData();
+				try {
+					if (choreInfo.getString("name").isEmpty() ||
+						choreInfo.getString("description").isEmpty() ||
+						choreInfo.getString("date").isEmpty() ||
+						choreInfo.getString("points").isEmpty()) {
+						
+						CharSequence text = "Please fill in all fields";
+						int duration = Toast.LENGTH_SHORT;
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
+					} else {
+						DataModel.addChore(context, choreInfo);
+						finish();
+					}
+				} catch (JSONException e) {
+					System.err.println("ERROR: malformed choreInfo");
+					System.exit(1);
+				}	
 			}
 		});
 		
@@ -179,20 +205,25 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		return this.dateText;
 	}
 	
-	public HashMap<String, String> getFieldData() {
-		HashMap<String, String> ourMap = new HashMap<String, String>();
+	public JSONObject getFieldData() {
 		TextView name, description, points;
 		name = (TextView) findViewById(R.id.editText1);
 		description = (TextView) findViewById(R.id.editText2);
 		
-		
-		ourMap.put("name", name.getText().toString());
-		ourMap.put("description", description.getText().toString());
-		ourMap.put("date", dateText );
-		
-		System.out.println(ourMap.keySet());
-		System.out.println(ourMap.values());
-		return ourMap;
+		try {
+			JSONObject chore = new JSONObject();
+			chore.put("name", name.getText().toString());
+			chore.put("description", description.getText().toString());
+			chore.put("date", dateText);
+			
+			//TODO put real points value
+			chore.put("points", 10);
+			return chore;
+		} catch (JSONException e) {
+			System.err.println("ERROR: Failed to create chore: " + e.getMessage());
+			System.exit(1);
+			return null;
+		}
 	}
 
 	
