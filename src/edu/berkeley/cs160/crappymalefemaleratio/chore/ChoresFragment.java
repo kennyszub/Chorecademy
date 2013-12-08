@@ -34,7 +34,7 @@ public class ChoresFragment extends Fragment {
     private ArrayList<HashMap<String, String>> list;
     
     private String mode;
-
+    private ListViewAdapter listViewAdapter;
     
 	public ChoresFragment() {
 	}
@@ -58,11 +58,19 @@ public class ChoresFragment extends Fragment {
     	}
         ListView lview = (ListView) rootView.findViewById(R.id.listview);
         populateList();
-        ListViewAdapter adapter = new ListViewAdapter(this.getActivity(), list);
-        lview.setAdapter(adapter);
+        listViewAdapter = new ListViewAdapter(this.getActivity(), list);
+        lview.setAdapter(listViewAdapter);
         lview.setOnItemClickListener(new ItemClickListener());
         
+        
         return rootView;
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	populateList();
+    	listViewAdapter.updateList(list);
     }
     
     private void addListenerOnAddChoreButton(View rootView) {
@@ -98,39 +106,7 @@ public class ChoresFragment extends Fragment {
         } catch (JSONException e) {
         	System.err.println("ERROR: Failed to populate list: " + e.getMessage());
 	    	System.exit(1);
-        }
-        // TEMP VALUES
-        
-      /*
-    	HashMap<String, String> laundry = new HashMap<String, String>();
-    	laundry.put(CHORE,"Do the Laundry and some other stuff");
-    	laundry.put(DESCRIPTION, "Wash your clothes, put them in the dryer, and fold them.");
-        laundry.put(DATE, "Today");
-        laundry.put(POINTS, "5");
-        list.add(laundry);
-        
-        
-        HashMap<String, String> dishes = new HashMap<String, String>();
-    	dishes.put(CHORE,"Wash the dishes");
-    	dishes.put(DESCRIPTION, "Clean food off the dishes and put in dishwasher");
-        dishes.put(DATE, "Tomorrow");
-        dishes.put(POINTS, "3");
-        list.add(dishes);
-        
-        HashMap<String, String> rake = new HashMap<String, String>();
-    	rake.put(CHORE,"Rake leaves");
-    	rake.put(DESCRIPTION, "Put in leaf bags by the door");
-        rake.put(DATE, "Tomorrow");
-        rake.put(POINTS, "3");
-        list.add(rake);
-        
-        HashMap<String, String> bathroom = new HashMap<String, String>();
-    	bathroom.put(CHORE,"Clean the bathroom");
-    	bathroom.put(DESCRIPTION, "Use windex to wipe down the bathroom");
-        bathroom.put(DATE, "Thursday");
-        bathroom.put(POINTS, "4");
-        list.add(bathroom);
-        */
+        }        
     }
     
     private class ItemClickListener implements OnItemClickListener {

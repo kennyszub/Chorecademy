@@ -40,6 +40,11 @@ public class ListViewAdapter extends BaseAdapter {
 		return 0;
 	}
 	
+	public void updateList(ArrayList<HashMap<String, String>> list) {
+		this.list = list;
+		notifyDataSetChanged();
+	}
+	
 	private class ViewHolder {
          TextView chore;
          TextView date;

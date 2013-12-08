@@ -216,8 +216,6 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			chore.put("name", name.getText().toString());
 			chore.put("description", description.getText().toString());
 			chore.put("date", dateText);
-			
-			//TODO put real points value
 			chore.put("points", points.getText());
 			return chore;
 		} catch (JSONException e) {
