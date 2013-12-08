@@ -4,18 +4,24 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -33,6 +39,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		setAddChoreOnClick();
 		setDatePickerOnClick();
 		setTimePickerOnClick();
+		setPointPickerOnClick();
 		
 		
 	}
@@ -71,6 +78,16 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		});
 	}
 	
+	protected void setPointPickerOnClick() {
+		final Button setPoints = (Button) findViewById(R.id.pointButton);
+		setPoints.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showPointPickerDialog(v);
+			}
+		});
+	}
+	
 	public void showDatePickerDialog(View v) {
 		
 	    DialogFragment newFragment = new DatePickerFragment();
@@ -91,6 +108,11 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 	public void showTimePickerDialog(View v) {
 		DialogFragment newFragment = new TimePickerFragment();
 		newFragment.show(getFragmentManager(), "timePicker");
+	}
+	
+	public void showPointPickerDialog(View v) {
+		DialogFragment newFragment = new NumberPickerFragment();
+		newFragment.show(getFragmentManager(), "pointPicker");
 	}
 	
 	protected String getMonthName(int i){
@@ -203,6 +225,61 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			
 			return new TimePickerDialog(getActivity(), (AddChoreActivity)getActivity(), hour, minute, DateFormat.is24HourFormat(getActivity()));
 			
+			
+		}
+	}
+	
+	public static class NumberPickerFragment extends DialogFragment {
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			
+			Context context = getActivity();
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			//LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater li = getActivity().getLayoutInflater();
+			LinearLayout newView = new LinearLayout(context);
+			//final NumberPicker numPicker = new NumberPicker(context);
+			//int points = numPicker.get
+			
+			
+			//newView.addView(numPicker);
+			//newView.setId(9);
+			View ourView = (View) li.inflate(R.layout.number_picker, null);
+			//View ourView = (View) li.inflate(R.layout.activity_add_chore, null);
+			//NumberPicker temp = findViewById(R.id.numberPicker1);
+			final NumberPicker numPicker = (NumberPicker) ourView.findViewById(R.id.numberPicker1);
+			System.out.println(numPicker);
+			
+			numPicker.setMaxValue(100);
+			numPicker.setMinValue(1);
+			
+			numPicker.setFocusable(true);
+			numPicker.setFocusableInTouchMode(true);
+			
+			builder.setView(ourView);
+			builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					TextView pointValue = (TextView) getActivity().findViewById(R.id.pointValue);
+					pointValue.setText(Integer.toString(numPicker.getValue()));
+					
+				}
+			});
+			builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
+			
+			
+			//ourView.a
+			
+			return builder.create();
 			
 		}
 	}

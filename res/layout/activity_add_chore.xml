@@ -24,6 +24,7 @@
 
     <TextView
         android:id="@+id/Chore"
+        android:textColor="@color/DodgerBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/editText1"
@@ -33,7 +34,7 @@
 
     <TextView
         android:id="@+id/Points"
-
+		android:textColor="@color/DodgerBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -56,6 +57,7 @@
 
     <TextView
         android:id="@+id/Date"
+        android:textColor="@color/DodgerBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -95,7 +97,35 @@
         android:layout_alignParentRight="true"
         android:text="Add this Chore" />
 
+    <TextView
+        android:id="@+id/pointText"
+        android:textColor="@color/DodgerBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dueDateButton"
+        android:text="Points: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/pointValue"
+        android:textColor="@color/DodgerBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pointText"
+        android:layout_alignRight="@+id/Points"
+        android:layout_below="@+id/pointText"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Button
+        android:id="@+id/pointButton"
+        style="@style/BlueStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pointValue"
+        android:text="Choose Point Value" />
 
 </RelativeLayout>
