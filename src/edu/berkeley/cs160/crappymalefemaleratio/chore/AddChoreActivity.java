@@ -77,13 +77,13 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 	}
 	
 	protected void setTimePickerOnClick() {
-		final Button setTime = (Button) findViewById(R.id.dueTimeButton);
-		setTime.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				showTimePickerDialog(v);
-			}
-		});
+//		final Button setTime = (Button) findViewById(R.id.dueTimeButton);
+//		setTime.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				showTimePickerDialog(v);
+//			}
+//		});
 	}
 	
 	public void showTimePickerDialog(View v) {
@@ -91,8 +91,36 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		newFragment.show(getFragmentManager(), "timePicker");
 	}
 	
-	protected void setUpTextFields() {
-		
+	protected String getMonthName(int i){
+		switch (i) {
+		case 0:
+			return "January";
+		case 1:
+			return "February";
+		case 2:
+			return "March";
+		case 3:
+			return "April";
+		case 4:
+			return "May";
+		case 5:
+			return "June";
+		case 6:
+			return "July";
+		case 7:
+			return "August";
+		case 8:
+			return "September";
+		case 9:
+			return "October";
+		case 10:
+			return "November";
+		case 11:
+			return "December";
+		default:
+			return "Moo";
+					
+		}
 	}
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		// Do something with the date chosen by the user
@@ -103,21 +131,24 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		System.out.println(dueDate.get(Calendar.MONTH));
 		System.out.println(dueDate.get(Calendar.DATE));
 		String yearText = Integer.toString(dueDate.get(Calendar.YEAR));
-		String monthText = Integer.toString(dueDate.get(Calendar.MONTH));
+		//String monthText = Integer.toString(dueDate.get(Calendar.MONTH));
+		String monthText = getMonthName(dueDate.get(Calendar.MONTH));
 		String dayText = Integer.toString(dueDate.get(Calendar.DATE));
-		dateText = yearText + monthText + dayText;
-		System.out.println(dateText);
+		dateText = monthText + " " + dayText + ", " + yearText;
+		
 		TextView dueText = (TextView) findViewById(R.id.dueDateText);
 	    //System.out.println(getDateAsText());
 	    dueText.setText(dateText);
+	    dueText.setBackgroundColor(this.getResources().getColor(R.color.gray));
+	    dueText.setTextColor(this.getResources().getColor(R.color.WhiteSmoke));
 	}
 	
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
-		TextView dueText = (TextView) findViewById(R.id.dueTimeText);
-		dueText.setText(Integer.toString(hourOfDay) + Integer.toString(minute));
-		System.out.println(hourOfDay);
-		System.out.println(minute);
+//		TextView dueText = (TextView) findViewById(R.id.dueTimeText);
+//		dueText.setText(Integer.toString(hourOfDay) + Integer.toString(minute));
+//		System.out.println(hourOfDay);
+//		System.out.println(minute);
     }
 	
 	public String getDateAsText() {

@@ -11,6 +11,9 @@
     <EditText
         android:id="@+id/editText1"
         style="@color/BlueViolet"
+        android:background="@color/gray"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -30,6 +33,7 @@
 
     <TextView
         android:id="@+id/Points"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -39,6 +43,9 @@
 
     <EditText
         android:id="@+id/editText2"
+        android:background="@color/gray"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -58,7 +65,7 @@
 
     <Button
         android:id="@+id/dueDateButton"
-        style="?android:attr/buttonStyleSmall"
+        style="@style/BlueStyleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -68,17 +75,19 @@
 
     <TextView
         android:id="@+id/dueDateText"
+        android:background ="@color/gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dueDateButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Date"
-        android:text="Medium Text"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/addChore"
+        style="@style/BlueStyleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -86,31 +95,7 @@
         android:layout_alignParentRight="true"
         android:text="Add this Chore" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dueDateButton"
-        android:text="Due Time:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/dueTimeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView4"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/dueTimeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/dueTimeText"
-        android:text="Pick Due Time" />
 
 </RelativeLayout>

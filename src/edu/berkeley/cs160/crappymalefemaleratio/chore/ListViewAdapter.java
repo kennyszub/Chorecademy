@@ -71,7 +71,7 @@ public class ListViewAdapter extends BaseAdapter {
         holder.date.setText(map.get(DATE));
         // make due date Today red
         if (map.get(DATE).equals("Today")) {
-        	holder.date.setTextColor(activity.getResources().getColor(R.color.OrangeRed));
+        	holder.date.setTextColor(activity.getResources().getColor(R.color.Crimson));
         }
         
         holder.points.setText(map.get(POINTS));
