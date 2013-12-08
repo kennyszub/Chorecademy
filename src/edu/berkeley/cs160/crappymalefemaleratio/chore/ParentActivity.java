@@ -136,23 +136,32 @@ public class ParentActivity extends FragmentActivity implements
 		public Fragment getItem(int position) {
 			switch(position) {
 			case 0:
+				Fragment approveFragment = new ApproveFragment();
+				Bundle approveSettings = new Bundle();
+				approveSettings.putString(MODE, PARENT);
+				approveFragment.setArguments(approveSettings);
+				
+				return approveFragment;
+			case 1:
 				Fragment choresFragment = new ChoresFragment();
 				Bundle settings = new Bundle();
 				settings.putString(MODE, PARENT);
 				choresFragment.setArguments(settings);
 				
 				return choresFragment;
-			case 1:
+			case 2:
 				// TODO create a PointTrackerFragment
 				
 				// getItem is called to instantiate the fragment for the given page.
 				// Return a DummySectionFragment (defined as a static inner class
 				// below) with the page number as its lone argument.
-				Fragment fragment = new DummySectionFragment();
-				Bundle args = new Bundle();
-				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
-				fragment.setArguments(args);
-				return fragment;
+				Fragment rewardsFragment = new RewardsFragment();
+				Bundle rewardsSettings = new Bundle();
+				rewardsSettings.putString(MODE, PARENT);
+				rewardsFragment.setArguments(rewardsSettings);
+				
+				return rewardsFragment;
+				
 			
 			}
 			return null;	
@@ -161,7 +170,7 @@ public class ParentActivity extends FragmentActivity implements
 		@Override
 		public int getCount() {
 			// Show 2 total pages.
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -169,8 +178,10 @@ public class ParentActivity extends FragmentActivity implements
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_chores).toUpperCase(l);
+				return getString(R.string.title_approve).toUpperCase(l);
 			case 1:
+				return getString(R.string.title_chores).toUpperCase(l);
+			case 2:
 				return getString(R.string.title_rewards).toUpperCase(l);
 			}
 			return null;

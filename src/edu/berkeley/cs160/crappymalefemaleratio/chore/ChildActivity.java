@@ -134,6 +134,15 @@ public class ChildActivity extends FragmentActivity implements
 				
 				return choresFragment;
 			case 1:
+				Fragment rewardsFragment = new RewardsFragment();
+				Bundle rewardsSettings = new Bundle();
+				rewardsSettings.putString(MODE, CHILD);
+				
+				rewardsFragment.setArguments(rewardsSettings);
+				
+				return rewardsFragment;
+				
+				/*
 				// TODO create a PointTrackerFragment
 				
 				// getItem is called to instantiate the fragment for the given page.
@@ -143,16 +152,23 @@ public class ChildActivity extends FragmentActivity implements
 				Bundle args = new Bundle();
 				args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
 				fragment.setArguments(args);
-				return fragment;
-			
+				return fragment; */
+			case 2:
+				Fragment claimsFragment = new ClaimsFragment();
+				Bundle claimsSettings = new Bundle();
+				claimsSettings.putString(MODE, CHILD);
+				
+				claimsFragment.setArguments(claimsSettings);
+				
+				return claimsFragment;
 			}
 			return null;
 		}
 
 		@Override
 		public int getCount() {
-			// Show 2 total pages.
-			return 2;
+			// Show 3 total pages.
+			return 3;
 		}
 
 		@Override
@@ -163,6 +179,8 @@ public class ChildActivity extends FragmentActivity implements
 				return getString(R.string.title_chores).toUpperCase(l);
 			case 1:
 				return getString(R.string.title_rewards).toUpperCase(l);
+			case 2:
+				return getString(R.string.title_claims).toUpperCase(l);
 			}
 			return null;
 		}
