@@ -40,18 +40,9 @@ public class ChoreDetailsActivity extends Activity {
 	
 	private void addListenerOnDoneButton() {
 		final Button doneButton = (Button) findViewById(R.id.doneButton);
-		final Intent i = new Intent(this, ChildActivity.class);
-		
-		// TODO remove temporary hack after prototype demo
-		i.putExtra("Laundry", "Done");
-		// TODO end hack
-		
-		
 		doneButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO remove this
-				//startActivity(i);
 				finish();
 			}
 		});
