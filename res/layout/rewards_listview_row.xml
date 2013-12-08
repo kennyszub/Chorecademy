@@ -1,38 +1,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+    android:layout_marginTop="64dp">
 
-    <TextView
-        android:id="@+id/Points"
+    <Button
+        android:id="@+id/Claim"
+        style="@style/BlueStyleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Chore"
-        android:layout_alignBottom="@+id/Chore"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="36dp"
-        android:text="10"
-        android:textColor="@color/OrangeRed"
-        android:textSize="25dip" />
-
+        android:layout_marginTop="5dp"
+        android:paddingTop="7dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="7dp"
+        android:text="Claim"
+        android:textColor="@color/white"
+        android:textSize="15dip" />
+    
     <TextView
-        android:id="@+id/Date"
+        android:id="@+id/Value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Chore"
-        android:layout_below="@+id/Chore"
+        android:layout_alignLeft="@+id/Reward"
+        android:layout_below="@+id/Reward"
         android:paddingBottom="5dip"
-        android:text="Due Tuesday"
+        android:text="100"
         android:textColor="@color/LightSlateGray" />
 
     <TextView
-        android:id="@+id/Chore"
+        android:id="@+id/Reward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="28dp"
-        android:text="Do Laundry"
+        android:text="PS3"
         android:textColor="@color/DodgerBlue"
         android:textSize="25dip" />
 
 </RelativeLayout>
+
+
+
+
+
+
+
+

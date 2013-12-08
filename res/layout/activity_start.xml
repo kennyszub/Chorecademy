@@ -11,8 +11,8 @@
      <Button
         android:id="@+id/childButton"
         style="@style/RedStyleButton"   
-        android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
         android:layout_above="@+id/parentButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
@@ -22,8 +22,8 @@
     <Button
         android:id="@+id/parentButton"
         style="@style/BlueStyleButton"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
         android:layout_alignLeft="@+id/childButton"
         android:layout_alignParentBottom="true"
         android:text="@string/parent"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/title" />
 
     <TextView
@@ -46,6 +46,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="@string/initialMsg"
-        android:textSize="50sp" />
+        android:textSize="28sp" />
 
 </RelativeLayout>

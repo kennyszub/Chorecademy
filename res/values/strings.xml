@@ -11,16 +11,21 @@
     <string name="title_activity_schedule">ScheduleActivity</string>
     <string name="title_activity_child_details">ChildDetailsActivity</string>
     <string name="title_chores">Chores</string>
-    <string name="title_rewards">Rewards Tracker</string>
+    <string name="title_rewards">Rewards</string>
+    <string name="title_claims">Claims</string>
+    <string name="title_approve">Approve</string>
     <string name="title_activity_picture">PictureActivity</string>
     <string name="title_activity_chores">ChoresActivity</string>
     <string name="title_activity_chores_fragment">ChoresFragment</string>
+    <string name="title_activity_rewards_fragment">RewardsFragment</string>
+    <string name="title_activity_claims_fragment">ClaimsFragment</string>
     <string name="title_activity_parent">ParentActivity</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_add_chore">AddChoreActivity</string>
     <string name="add_chore_text">Add Chore</string>
+    <string name="add_reward_text">Add Reward</string>
     <string name="title_activity_set_reward">SetReward</string>
     <string name="title_activity_child">ChildActivity</string>
 
