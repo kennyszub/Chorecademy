@@ -50,7 +50,9 @@ public class ChoreDetailsActivity extends Activity {
 		doneButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(i);
+				//TODO remove this
+				//startActivity(i);
+				finish();
 			}
 		});
 	}
