@@ -86,7 +86,7 @@ public class ChoresFragment extends Fragment {
         Bundle settings = this.getArguments();
         if (settings.getString("Laundry") == null) {
 	    	HashMap<String, String> laundry = new HashMap<String, String>();
-	    	laundry.put(CHORE,"Do the Laundry");
+	    	laundry.put(CHORE,"Do the Laundry and some other stuff");
 	    	laundry.put(DESCRIPTION, "Wash your clothes, put them in the dryer, and fold them.");
 	        laundry.put(DATE, "Today");
 	        laundry.put(POINTS, "5");

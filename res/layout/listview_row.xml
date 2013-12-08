@@ -3,18 +3,6 @@
     android:layout_height="fill_parent" >
 
     <TextView
-        android:id="@+id/Points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Chore"
-        android:layout_alignBottom="@+id/Chore"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="36dp"
-        android:text="10"
-        android:textColor="@color/OrangeRed"
-        android:textSize="25dip" />
-
-    <TextView
         android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,9 +18,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
+        android:layout_marginLeft="20dp"
+        android:layout_toLeftOf="@id/Points"
+        android:scrollHorizontally="true"
+        android:ellipsize="end" 
+        android:maxLines="1"       
         android:text="Do Laundry"
         android:textColor="@color/DodgerBlue"
+        android:textSize="25dip" />
+
+    <TextView
+        android:id="@+id/PointsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Date"
+        android:layout_alignBottom="@+id/Date"
+        android:layout_alignLeft="@+id/Points" 
+        android:text="Points"
+        android:textColor="@color/OrangeRed" />
+
+    <TextView
+        android:id="@+id/Points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="40dp"
+        android:text="10"
+        android:textColor="@color/OrangeRed"
         android:textSize="25dip" />
 
 </RelativeLayout>
