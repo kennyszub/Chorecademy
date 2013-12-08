@@ -209,6 +209,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		TextView name, description, points;
 		name = (TextView) findViewById(R.id.editText1);
 		description = (TextView) findViewById(R.id.editText2);
+		points = (TextView) findViewById(R.id.pointValue);
 		
 		try {
 			JSONObject chore = new JSONObject();
@@ -217,7 +218,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			chore.put("date", dateText);
 			
 			//TODO put real points value
-			chore.put("points", 10);
+			chore.put("points", points.getText());
 			return chore;
 		} catch (JSONException e) {
 			System.err.println("ERROR: Failed to create chore: " + e.getMessage());
