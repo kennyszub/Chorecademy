@@ -39,6 +39,7 @@ public class SetReward extends Activity {
 			reward.put("name", name.getText().toString());
 			reward.put("description", description.getText().toString());
 			reward.put("points", points.getText());
+			reward.put("claims", "false");
 			return reward;
 		} catch (JSONException e) {
 			System.err.println("ERROR: Failed to create reward: " + e.getMessage());
@@ -75,7 +76,35 @@ public class SetReward extends Activity {
 		});
 		
 	}
-	
+/*	
+	protected void resaveReward() {
+		final Button resaveReward = (Button) findViewById(R.id.resaveReward);
+	    resaveReward.setOnClickListener(new OnClickListener() {
+			@Override
+
+			public void onClick(View v) {				
+
+				TextView name, description, points;
+				name = (TextView) findViewById(R.id.reward_name);
+				description = (TextView) findViewById(R.id.reward_details);
+				points = (TextView) findViewById(R.id.reward_cost);
+				
+				try {
+					if (
+
+
+					} else {
+						DataModel.addReward(context, rewardInfo);
+						finish();
+					}
+				} catch (JSONException e) {
+					System.err.println("ERROR: malformed choreInfo");
+					System.exit(1);
+				}	
+			}
+		});
+	}
+*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
