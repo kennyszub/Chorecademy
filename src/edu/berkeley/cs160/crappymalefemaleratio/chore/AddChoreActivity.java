@@ -37,6 +37,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 	private GregorianCalendar dueDate;
 	private String dateText;
 	private Context context;
+	private long timeInMillis;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +173,28 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 					
 		}
 	}
+	
+	protected String getDayOfWeek(int i) {
+		switch (i) {
+		case Calendar.SUNDAY:
+			return "Sunday";
+		case Calendar.MONDAY:
+			return "Monday";
+		case Calendar.TUESDAY:
+			return "Tuesday";
+		case Calendar.WEDNESDAY:
+			return "Wednesday";
+		case Calendar.THURSDAY:
+			return "Thursday";
+		case Calendar.FRIDAY:
+			return "Friday";
+		case Calendar.SATURDAY:
+			return "Saturday";
+		default:
+			return "Anytime";
+		}
+	}
+	
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		// Do something with the date chosen by the user
 		//TextView date = findViewById(R.id.dueDateText);
@@ -184,7 +207,12 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		//String monthText = Integer.toString(dueDate.get(Calendar.MONTH));
 		String monthText = getMonthName(dueDate.get(Calendar.MONTH));
 		String dayText = Integer.toString(dueDate.get(Calendar.DATE));
-		dateText = monthText + " " + dayText + ", " + yearText;
+		
+		String dayOfWeek = getDayOfWeek(dueDate.get(Calendar.DAY_OF_WEEK));
+		
+		//dateText = monthText + " " + dayText + ", " + yearText;
+		dateText = dayOfWeek + ", " + monthText + " " + dayText;
+		timeInMillis = dueDate.getTimeInMillis();
 		
 		TextView dueText = (TextView) findViewById(R.id.dueDateText);
 	    //System.out.println(getDateAsText());
@@ -217,6 +245,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			chore.put("description", description.getText().toString());
 			chore.put("date", dateText);
 			chore.put("points", points.getText());
+			chore.put("millis", timeInMillis);
 			return chore;
 		} catch (JSONException e) {
 			System.err.println("ERROR: Failed to create chore: " + e.getMessage());
@@ -240,7 +269,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			int day = c.get(Calendar.DAY_OF_MONTH);
 
 			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(), (AddChoreActivity)getActivity(), year, month, day);
+			return new DatePickerDialog(getActivity(), (AddChoreActivity) getActivity(), year, month, day);
 		}
 
 	}
