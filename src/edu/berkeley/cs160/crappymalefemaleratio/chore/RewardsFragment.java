@@ -32,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class RewardsFragment extends Fragment {
@@ -64,6 +65,12 @@ public class RewardsFragment extends Fragment {
     	}
         ListView lview = (ListView) rootView.findViewById(R.id.rewards_listview);
         populateList();
+        
+        if(mode.equals(CHILD)){
+    		/* Modify Reward Bar */
+    		generateRewardBar(rootView);
+        }
+        
         adapter = new RewardsListViewAdapter(this.getActivity(), list, mode);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
@@ -94,7 +101,34 @@ public class RewardsFragment extends Fragment {
     	});
     }
     
-    
+    private void generateRewardBar(View v){
+    	ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.RewardBar);
+		TextView nextReward = (TextView) v.findViewById(R.id.RewardBarItem);
+		int userPoints = 66; // Temporary 
+		int minPoints = (int) Double.POSITIVE_INFINITY;
+		String hashKey, nextRewardName = "";
+		HashMap<String, String> hash;
+		int hashValue, pointsToReward, percentageOfBar;
+		/* Note: Replace list with the JSONArray for "rewards" in the future */
+		for(int i=0; i<list.size(); i++){
+			hash = list.get(i);
+			hashKey = (String) hash.get(REWARD);
+			hashValue = Integer.parseInt(hash.get(VALUE));
+			if((hashValue < minPoints) && (userPoints < hashValue)){
+				nextRewardName = hashKey;
+				minPoints = hashValue;
+			}
+		}
+		if(list.size() > 0){
+    		if(userPoints < minPoints){
+    			percentageOfBar = (int)(((double) userPoints)/minPoints * 100);
+    		}else{
+    			percentageOfBar = 0;
+    		}
+    		progressBar.setProgress(percentageOfBar);
+    		nextReward.setText(nextRewardName+" ("+percentageOfBar +"/"+minPoints+")");
+		}
+    }
     /** Populate list items. */
     private void populateList() {
     	 
@@ -106,22 +140,29 @@ public class RewardsFragment extends Fragment {
         if (settings.getString("iPad") == null) {
             HashMap<String, String> ipad = new HashMap<String, String>();
             ipad.put(REWARD,"iPad");
-            ipad.put(VALUE, "400 Points");
+            ipad.put(VALUE, "400");
             ipad.put(CLAIM, "false");
             list.add(ipad);
         }
         
         HashMap<String, String> ps3 = new HashMap<String, String>();
         ps3.put(REWARD,"PS3");
-        ps3.put(VALUE, "300 Points");
+        ps3.put(VALUE, "300");
         ps3.put(CLAIM, "false");
         list.add(ps3);
 
         HashMap<String, String> legos = new HashMap<String, String>();
         legos.put(REWARD,"Lego Set");
-        legos.put(VALUE, "100 Points");
+        legos.put(VALUE, "100");
         legos.put(CLAIM, "false");
         list.add(legos);
+
+        HashMap<String, String> cards = new HashMap<String, String>();
+        cards.put(REWARD,"Trading Cards");
+        cards.put(VALUE, "60");
+        cards.put(CLAIM, "false");
+        list.add(cards);
+        
         
         JSONArray rewards = DataModel.getRewards(activity);
         JSONObject rewardObject;
