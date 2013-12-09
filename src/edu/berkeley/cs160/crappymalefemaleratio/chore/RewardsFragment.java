@@ -37,6 +37,7 @@ public class RewardsFragment extends Fragment {
     private ArrayList<HashMap<String, String>> list;
     private String mode;
     RewardsListViewAdapter adapter;
+
     
 	public RewardsFragment() {
 	}
@@ -120,13 +121,6 @@ public class RewardsFragment extends Fragment {
         legos.put(VALUE, "100 Points");
         legos.put(CLAIM, "false");
         list.add(legos);
-
-        HashMap<String, String> cards = new HashMap<String, String>();
-        cards.put(REWARD,"Trading Cards");
-        cards.put(VALUE, "60 Points");
-        cards.put(CLAIM, "false");
-        list.add(cards);
-        
         
         JSONArray rewards = DataModel.getRewards(activity);
         JSONObject rewardObject;
@@ -136,7 +130,7 @@ public class RewardsFragment extends Fragment {
 	        	rewardObject = rewards.getJSONObject(i);
 	        	HashMap<String, String> new_reward = new HashMap<String, String>();
 	        	new_reward.put(REWARD, rewardObject.getString("name"));
-	        	new_reward.put(VALUE, rewardObject.getString("points"));
+	        	new_reward.put(VALUE, rewardObject.getString("points") + " Points");
 	            new_reward.put(CLAIM, "false");
 	        	list.add(new_reward);
 	        	System.out.println("printed reward");
@@ -153,6 +147,16 @@ public class RewardsFragment extends Fragment {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     		
+    		JSONArray rewards = DataModel.getRewards(activity);
+    		JSONObject rewardObject;
+    		
+    		
+    		HashMap<String, String> itemMap = list.get(position);
+    		
+    		Intent intent = new Intent(activity, SetReward.class);
+    		intent.putExtra(REWARD, itemMap.get(REWARD));
+    		intent.putExtra(VALUE, itemMap.get(VALUE));
+    		activity.startActivity(intent);
     	}
     }
     

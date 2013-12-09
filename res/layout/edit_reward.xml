@@ -27,7 +27,7 @@
         android:ems="10"
         android:hint="Enter details here"
         android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+        android:textColorHint="@color/LightSlateGray" />
 
     <TextView
         android:id="@+id/TextView03"
@@ -59,7 +59,7 @@
         android:layout_alignLeft="@+id/reward_cost"
         android:layout_below="@+id/reward_name"
         android:layout_marginTop="22dp"
-        android:text="Reward Cost"
+        android:text="Reward Points"
         android:textColor="@color/DodgerBlue"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -71,9 +71,9 @@
         android:layout_alignLeft="@+id/TextView03"
         android:layout_below="@+id/TextView01"
         android:ems="10"
-        android:hint="Enter cost"
+        android:hint="Enter points required"
         android:textColor="@color/black"
-        android:textColorHint="@color/black" />
+        android:textColorHint="@color/LightSlateGray" />
 
     <EditText
         android:id="@+id/reward_name"
@@ -84,7 +84,7 @@
         android:ems="10"
         android:hint="Enter reward name!"
         android:textColor="@color/black"
-        android:textColorHint="@color/black" >
+        android:textColorHint="@color/LightSlateGray" >
 
         <requestFocus />
     </EditText>

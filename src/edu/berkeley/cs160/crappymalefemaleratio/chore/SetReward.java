@@ -1,17 +1,27 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
+
+import java.util.HashMap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class SetReward extends Activity {
 
@@ -64,9 +74,24 @@ public class SetReward extends Activity {
 						int duration = Toast.LENGTH_SHORT;
 						Toast toast = Toast.makeText(context, text, duration);
 						toast.show();
-					} else {
-						DataModel.addReward(context, rewardInfo);
-						finish();
+					}
+					else {
+						try
+						{
+							String points_string = rewardInfo.getString("points");
+							Integer.parseInt(points_string);
+							
+							DataModel.addReward(context, rewardInfo);
+							finish();
+						}
+						catch(NumberFormatException e)
+						{
+							CharSequence text = "Corrupt number in points category";
+							int duration = Toast.LENGTH_SHORT;
+							Toast toast = Toast.makeText(context, text, duration);
+							toast.show();
+						}			
+
 					}
 				} catch (JSONException e) {
 					System.err.println("ERROR: malformed choreInfo");
@@ -76,36 +101,10 @@ public class SetReward extends Activity {
 		});
 		
 	}
-/*	
-	protected void resaveReward() {
-		final Button resaveReward = (Button) findViewById(R.id.resaveReward);
-	    resaveReward.setOnClickListener(new OnClickListener() {
-			@Override
-
-			public void onClick(View v) {				
-
-				TextView name, description, points;
-				name = (TextView) findViewById(R.id.reward_name);
-				description = (TextView) findViewById(R.id.reward_details);
-				points = (TextView) findViewById(R.id.reward_cost);
-				
-				try {
-					if (
 
 
-					} else {
-						DataModel.addReward(context, rewardInfo);
-						finish();
-					}
-				} catch (JSONException e) {
-					System.err.println("ERROR: malformed choreInfo");
-					System.exit(1);
-				}	
-			}
-		});
-	}
-*/
-
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
