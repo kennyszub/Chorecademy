@@ -107,9 +107,21 @@ public class DataModel {
 		{
 			JSONObject jsonData = getJSON(context);
 			JSONArray rewards = jsonData.getJSONArray("rewards");
+			JSONArray claims = jsonData.getJSONArray("claims");
 			int index = findIndex(context, "rewards", reward_name);
 			JSONObject claimed_reward = rewards.getJSONObject(index);
 			// rewards.remove(index);
+			
+			JSONArray rewardsMinusOne = new JSONArray();
+			for (int i = 0; i < rewards.length(); i++)
+			{
+				if (rewards.getJSONObject(i).getString(reward_name).equals(reward_name))
+				rewardsMinusOne.put(rewards.getJSONObject(i));
+			}
+			
+			jsonData.put("rewards", rewardsMinusOne);
+			claims.put(claimed_reward);
+			
 			
 		}
 		catch(JSONException e)

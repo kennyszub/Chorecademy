@@ -40,6 +40,7 @@ public class RewardsFragment extends Fragment {
     private ArrayList<HashMap<String, String>> list;
     private String mode;
     RewardsListViewAdapter adapter;
+
     
 	public RewardsFragment() {
 	}
@@ -171,7 +172,7 @@ public class RewardsFragment extends Fragment {
 	        	rewardObject = rewards.getJSONObject(i);
 	        	HashMap<String, String> new_reward = new HashMap<String, String>();
 	        	new_reward.put(REWARD, rewardObject.getString("name"));
-	        	new_reward.put(VALUE, rewardObject.getString("points"));
+	        	new_reward.put(VALUE, rewardObject.getString("points") + " Points");
 	            new_reward.put(CLAIM, "false");
 	        	list.add(new_reward);
 	        	System.out.println("printed reward");
@@ -187,12 +188,18 @@ public class RewardsFragment extends Fragment {
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    		
+    		JSONArray rewards = DataModel.getRewards(activity);
+    		JSONObject rewardObject;
+    		
+    		
     		HashMap<String, String> itemMap = list.get(position);
-    		Intent intent = new Intent(activity, ChoreDetailsActivity.class);
-    		intent.putExtra(CHORE, itemMap.get(CHORE));
-    		intent.putExtra(DESCRIPTION, itemMap.get(DESCRIPTION));
-    		intent.putExtra(DATE, itemMap.get(DATE));
-    		intent.putExtra(POINTS, itemMap.get(POINTS));
+    		
+    		Intent intent = new Intent(activity, SetReward.class);
+    		intent.putExtra(REWARD, itemMap.get(REWARD));
+    		intent.putExtra(VALUE, itemMap.get(VALUE));
+
     		activity.startActivity(intent);
     	}
     }
