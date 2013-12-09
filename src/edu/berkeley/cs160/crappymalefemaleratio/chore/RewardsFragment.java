@@ -14,10 +14,13 @@ import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class RewardsFragment extends Fragment {
     private Activity activity;
@@ -38,30 +42,28 @@ public class RewardsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+    	
     	Bundle settings = this.getArguments();
     	mode = settings.getString(MODE);
     	
         activity = this.getActivity();
-    	View rootView;
+    	View rootView, rowView = null;
 
 		// Use child chores fragment
     	if (mode.equals(CHILD)) {
     		rootView = inflater.inflate(R.layout.activity_child_rewards_fragment, container, false);
-    	// Use parent chores fragment
+    		rowView = inflater.inflate(R.layout.rewards_listview_row, container, false);	
     	} else {
     		rootView = inflater.inflate(R.layout.activity_parent_rewards_fragment, container, false);
     		addListenerOnAddChoreButton(rootView);
     	}
         ListView lview = (ListView) rootView.findViewById(R.id.rewards_listview);
         populateList();
-        RewardsListViewAdapter adapter = new RewardsListViewAdapter(this.getActivity(), list);
+        RewardsListViewAdapter adapter = new RewardsListViewAdapter(this.getActivity(), list, mode);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
-        Button claim_button = (Button) lview.findViewById(R.id.Claim);
-        if(mode.equals(CHILD)){
-        	// claim_button.setVisibility(View.VISIBLE);
-        }
+        
         return rootView;
     }
     
@@ -76,6 +78,7 @@ public class RewardsFragment extends Fragment {
     		}
     	});
     }
+    
     
     /** Populate list items. */
     private void populateList() {
@@ -111,11 +114,17 @@ public class RewardsFragment extends Fragment {
         cards.put(CLAIM, "false");
         list.add(cards);
     }
-    
+
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		
+    		HashMap<String, String> itemMap = list.get(position);
+    		Intent intent = new Intent(activity, ChoreDetailsActivity.class);
+    		intent.putExtra(CHORE, itemMap.get(CHORE));
+    		intent.putExtra(DESCRIPTION, itemMap.get(DESCRIPTION));
+    		intent.putExtra(DATE, itemMap.get(DATE));
+    		intent.putExtra(POINTS, itemMap.get(POINTS));
+    		activity.startActivity(intent);
     	}
     }
     
