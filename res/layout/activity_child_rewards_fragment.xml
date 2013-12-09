@@ -5,9 +5,51 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".RewardsFragment"
 >
-
+    <TextView
+        android:id="@+id/RewardBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="6dp"
+        android:text="Points to Next Reward:"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="17dip" />
+    
+    <ProgressBar
+	    android:id="@+id/RewardBar"
+	    style="?android:attr/progressBarStyleHorizontal"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+        android:layout_below="@+id/RewardBarTitle"
+	    android:indeterminate="false"
+	    android:maxHeight="17dip"
+	    android:minHeight="17dip"
+	    android:layout_centerInParent="true"
+		android:layout_centerVertical="true"
+		android:layout_centerHorizontal="true"
+	    android:progress="50"
+	    android:progressDrawable="@drawable/rewardbar" />
+    
+    <TextView
+        android:id="@+id/RewardBarItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RewardBar"
+        android:gravity="right"
+        android:layout_weight="1.0"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="24dp"
+        android:text="Trading Cards (50/70)"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="12dip" />
+    
     <ListView
         android:id="@+id/rewards_listview"
+        android:layout_below="@+id/RewardBarItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
