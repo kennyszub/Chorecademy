@@ -77,9 +77,8 @@ public class ListViewAdapter extends BaseAdapter {
         
         HashMap<String, String> map = list.get(position);
         holder.chore.setText(map.get(CHORE));
-        
+        holder.points.setText(map.get(POINTS));
 
-        
         // modify due date texts
         Calendar currentCalendar = Calendar.getInstance();
         Calendar choreCalendar = Calendar.getInstance();
@@ -88,8 +87,12 @@ public class ListViewAdapter extends BaseAdapter {
         if (sameDay(currentCalendar, choreCalendar)) {
         	holder.date.setText("Today");
         	holder.date.setTextColor(activity.getResources().getColor(R.color.Crimson));
+        	holder.date.setTypeface(null, Typeface.NORMAL);
+
         } else if (nextDay(currentCalendar, choreCalendar)) {
         	holder.date.setText("Tomorrow");
+        	holder.date.setTextColor(activity.getResources().getColor(R.color.LightSlateGray));
+        	holder.date.setTypeface(null, Typeface.NORMAL);
         } else if (overDue(currentCalendar, choreCalendar)) {
         	holder.date.setText("Overdue!");
         	holder.date.setTextColor(activity.getResources().getColor(R.color.Crimson));
@@ -100,8 +103,6 @@ public class ListViewAdapter extends BaseAdapter {
         	holder.date.setTypeface(null, Typeface.NORMAL);
         }
         
-        holder.points.setText(map.get(POINTS));
-
         return convertView;
 	}
 	
