@@ -4,15 +4,16 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class PictureActivity extends Activity {
 	/* Variables */
@@ -30,7 +31,7 @@ public class PictureActivity extends Activity {
 	
 	@SuppressLint("SimpleDateFormat")
 	private void initCamera(){
-		Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");	
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);	
 		
 		/* Create File Directory */
 		String pic_directory = Environment.getExternalStorageDirectory() + "/GetAwayCam/";
@@ -61,5 +62,25 @@ public class PictureActivity extends Activity {
 		getMenuInflater().inflate(R.menu.start, menu);
 		return true;
 	}
+	
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+
+    	System.out.println("here1");
+        
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        	System.out.println("here");
+        	if (resultCode == RESULT_OK) {
+        		Toast.makeText(this, "Image saved to:\n" +
+                        data.getData(), Toast.LENGTH_LONG).show();
+            	
+                System.out.println(data.toString());
+        	} else {
+        		System.out.println("CameraDemo Pics Not Saved ");
+        	}
+        }
+}
+
 
 }

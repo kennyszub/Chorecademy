@@ -19,9 +19,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,30 +47,28 @@ public class RewardsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+    	
     	Bundle settings = this.getArguments();
     	mode = settings.getString(MODE);
     	
         activity = this.getActivity();
-    	View rootView;
+    	View rootView, rowView = null;
 
 		// Use child chores fragment
     	if (mode.equals(CHILD)) {
     		rootView = inflater.inflate(R.layout.activity_child_rewards_fragment, container, false);
-    	// Use parent chores fragment
+    		rowView = inflater.inflate(R.layout.rewards_listview_row, container, false);	
     	} else {
     		rootView = inflater.inflate(R.layout.activity_parent_rewards_fragment, container, false);
     		addListenerOnAddChoreButton(rootView);
     	}
         ListView lview = (ListView) rootView.findViewById(R.id.rewards_listview);
         populateList();
-        adapter = new RewardsListViewAdapter(this.getActivity(), list);
+        adapter = new RewardsListViewAdapter(this.getActivity(), list, mode);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
-        Button claim_button = (Button) lview.findViewById(R.id.Claim);
-        if(mode.equals(CHILD)){
-        	// claim_button.setVisibility(View.VISIBLE);
-        }
+        
         return rootView;
     }
     
@@ -93,6 +93,7 @@ public class RewardsFragment extends Fragment {
     		}
     	});
     }
+    
     
     /** Populate list items. */
     private void populateList() {
@@ -142,10 +143,11 @@ public class RewardsFragment extends Fragment {
 
 
     }
-    
+
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     		
     		JSONArray rewards = DataModel.getRewards(activity);
     		JSONObject rewardObject;
@@ -156,6 +158,7 @@ public class RewardsFragment extends Fragment {
     		Intent intent = new Intent(activity, SetReward.class);
     		intent.putExtra(REWARD, itemMap.get(REWARD));
     		intent.putExtra(VALUE, itemMap.get(VALUE));
+
     		activity.startActivity(intent);
     	}
     }
