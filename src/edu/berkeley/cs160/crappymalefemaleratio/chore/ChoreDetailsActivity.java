@@ -4,9 +4,18 @@ import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +25,9 @@ import android.widget.Toast;
 
 
 public class ChoreDetailsActivity extends Activity {
-
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 0;
+	public Uri ourURI;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,8 +43,9 @@ public class ChoreDetailsActivity extends Activity {
 	    pic_button.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
          	 		Toast.makeText(getApplicationContext(), "Picture Mode", Toast.LENGTH_SHORT).show();
-		            Intent picmode = new Intent(ChoreDetailsActivity.this.getApplicationContext(), PictureActivity.class);
-		            startActivity(picmode);
+		            //Intent picmode = new Intent(ChoreDetailsActivity.this.getApplicationContext(), PictureActivity.class);
+		            //startActivity(picmode);
+         	 		initCamera();
              }
 	    });
 	}
@@ -76,6 +88,63 @@ public class ChoreDetailsActivity extends Activity {
 		    }
 		}
 	}
+	@SuppressLint("SimpleDateFormat")
+	private void initCamera(){
+		Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);	
+		
+		/* Create File Directory */
+		//String pic_directory = Environment.getExternalStorageDirectory() + "/GetAwayCam/";
+		//File getawaycam = new File(pic_directory);
+		//getawaycam.mkdirs();
+
+		/* Create File to Save To */
+		SimpleDateFormat current_time = new SimpleDateFormat("ddMMyyyyhhmmss");
+		String current_date = current_time.format(new Date());
+		// Toast.makeText(this.getApplicationContext(), "Date: "+current_date, Toast.LENGTH_LONG).show();
+		
+		File imageFolder = new File(Environment.getExternalStorageDirectory(),"/Chorecademy/");
+		imageFolder.mkdirs();
+		if (imageFolder.exists()) {
+			File filename = new File(
+					imageFolder, current_date + ".jpg");
+			//filename.mkdirs();
+			//if (filename.exists()) {
+				ourURI = Uri.fromFile(filename);	
+				System.out.println(filename);
+				
+				/* Start Camera */
+				intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, ourURI);
+				System.out.println(intent.getData());
+			 	startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+			//}
+			
+		} else {
+			Toast.makeText(this, "No dice", Toast.LENGTH_LONG).show();
+		}
+		
+	}
+	
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+
+    	System.out.println("here1");
+        
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        	System.out.println("here");
+        	if (resultCode == RESULT_OK) {
+        		System.out.println("here2");
+        		//Uri ourURI = data.getData();
+        		
+        		Toast.makeText(this, "Image saved to:\n" +
+                        ourURI, Toast.LENGTH_LONG).show();
+            	
+                //System.out.println(data.toString());
+        	} else {
+        		System.out.println("CameraDemo Pics Not Saved ");
+        	}
+        }
+    }
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
