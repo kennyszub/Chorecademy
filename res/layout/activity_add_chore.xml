@@ -9,83 +9,41 @@
     tools:context=".AddChoreActivity" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editChore"
         style="@color/BlueViolet"
-        android:background="@color/gray"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Chore"
         android:ems="10"
-        android:hint="Clean your room!" />
+        android:hint="Clean your room!"
+        android:textColor="@color/DodgerBlue"
+        android:textColorHint="@color/gray" />
 
     <TextView
         android:id="@+id/Chore"
-        android:textColor="@color/DodgerBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="Chore Name:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/Points"
-		android:textColor="@color/DodgerBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText1"
-        android:text="Chore Details:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:background="@color/gray"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/Points"
-        android:ems="10"
-        android:hint="Make your bed and put your toys away" />
-
-    <TextView
-        android:id="@+id/Date"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/DodgerBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText2"
-        android:text="Due Date:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/dueDateButton"
-        style="@style/BlueStyleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:text="Pick Due Date" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/dueDateText"
-        android:background ="@color/gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/dueDateButton"
+        android:layout_alignBottom="@+id/dueDateButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/Date"
+        android:layout_toLeftOf="@+id/dueDateButton"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+         />
 
     <Button
         android:id="@+id/addChore"
@@ -98,34 +56,79 @@
         android:text="Add this Chore" />
 
     <TextView
-        android:id="@+id/pointText"
+        android:id="@+id/pointValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/pointButton"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/pointText"
+        android:layout_toLeftOf="@+id/pointButton"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium"
+         />
+
+    <TextView
+        android:id="@+id/Points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editChore"
+        android:layout_below="@+id/editChore"
+        android:text="Chore Details:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/DodgerBlue"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/dueDateButton"
-        android:text="Points: "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Points"
+        android:ems="10"
+        android:hint="Make your bed and put your toys away"
+        android:textColor="@color/DodgerBlue"
+        android:textColorHint="@color/gray" />
 
     <TextView
-        android:id="@+id/pointValue"
-        android:textColor="@color/DodgerBlue"
+        android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/pointText"
-        android:layout_alignRight="@+id/Points"
-        android:layout_below="@+id/pointText"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editDetails"
+        android:text="Due Date:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/DodgerBlue"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/dueDateButton"
+        style="@style/BlueStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Date"
+        android:text="Pick Due Date" />
+
+    <TextView
+        android:id="@+id/pointText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dueDateText"
+        android:layout_below="@+id/dueDateText"
+        android:text="Points: "
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/DodgerBlue"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/pointButton"
         style="@style/BlueStyleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/pointValue"
+        android:layout_below="@+id/pointText"
         android:text="Choose Point Value" />
 
 </RelativeLayout>
