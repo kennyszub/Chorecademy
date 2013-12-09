@@ -6,6 +6,8 @@ import java.util.GregorianCalendar;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.berkeley.cs160.crappymalefemaleratio.chore.R.color;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -35,18 +37,26 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 	Button addChore;
 	RelativeLayout currentView;
 	private GregorianCalendar dueDate;
+	private GregorianCalendar defaultDate;
 	private String dateText;
 	private Context context;
+	private long timeInMillis;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_chore);
+		setDefaultDate();
+		setDefaultPoints();
+		
 		setAddChoreOnClick();
 		setDatePickerOnClick();
 		setTimePickerOnClick();
 
 		setPointPickerOnClick();
+		
+		
+		
 		
 
 		context = this;
@@ -61,6 +71,24 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		return true;
 	}
 	
+	protected void setDefaultDate() {
+		defaultDate = new GregorianCalendar();
+		String yearText = Integer.toString(defaultDate.get(Calendar.YEAR));
+		
+		String monthText = getMonthName(defaultDate.get(Calendar.MONTH));
+		String dayText = Integer.toString(defaultDate.get(Calendar.DATE));
+		dateText = monthText + " " + dayText + ", " + yearText;
+		TextView dueText = (TextView) findViewById(R.id.dueDateText);
+	    
+	    dueText.setText(dateText);
+	    dueText.setTextColor(getResources().getColor(R.color.gray));
+	}
+	
+	protected void setDefaultPoints() {
+		TextView pointValue = (TextView)findViewById(R.id.pointValue);
+		pointValue.setText(Integer.toString(5));
+		pointValue.setTextColor(getResources().getColor(R.color.gray));
+	}
 	
 	protected void setAddChoreOnClick() {
 		final Button addChore = (Button) findViewById(R.id.addChore);
@@ -172,6 +200,28 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 					
 		}
 	}
+	
+	protected String getDayOfWeek(int i) {
+		switch (i) {
+		case Calendar.SUNDAY:
+			return "Sunday";
+		case Calendar.MONDAY:
+			return "Monday";
+		case Calendar.TUESDAY:
+			return "Tuesday";
+		case Calendar.WEDNESDAY:
+			return "Wednesday";
+		case Calendar.THURSDAY:
+			return "Thursday";
+		case Calendar.FRIDAY:
+			return "Friday";
+		case Calendar.SATURDAY:
+			return "Saturday";
+		default:
+			return "Anytime";
+		}
+	}
+	
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		// Do something with the date chosen by the user
 		//TextView date = findViewById(R.id.dueDateText);
@@ -180,17 +230,23 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 		System.out.println(dueDate.get(Calendar.YEAR));
 		System.out.println(dueDate.get(Calendar.MONTH));
 		System.out.println(dueDate.get(Calendar.DATE));
+		
 		String yearText = Integer.toString(dueDate.get(Calendar.YEAR));
 		//String monthText = Integer.toString(dueDate.get(Calendar.MONTH));
 		String monthText = getMonthName(dueDate.get(Calendar.MONTH));
 		String dayText = Integer.toString(dueDate.get(Calendar.DATE));
-		dateText = monthText + " " + dayText + ", " + yearText;
+		
+		String dayOfWeek = getDayOfWeek(dueDate.get(Calendar.DAY_OF_WEEK));
+		
+		//dateText = monthText + " " + dayText + ", " + yearText;
+		dateText = dayOfWeek + ", " + monthText + " " + dayText;
+		timeInMillis = dueDate.getTimeInMillis();
 		
 		TextView dueText = (TextView) findViewById(R.id.dueDateText);
 	    //System.out.println(getDateAsText());
 	    dueText.setText(dateText);
-	    dueText.setBackgroundColor(this.getResources().getColor(R.color.gray));
-	    dueText.setTextColor(this.getResources().getColor(R.color.WhiteSmoke));
+	    dueText.setTextColor(getResources().getColor(R.color.DodgerBlue));
+	    
 	}
 	
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -207,8 +263,8 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 	
 	public JSONObject getFieldData() {
 		TextView name, description, points;
-		name = (TextView) findViewById(R.id.editText1);
-		description = (TextView) findViewById(R.id.editText2);
+		name = (TextView) findViewById(R.id.editChore);
+		description = (TextView) findViewById(R.id.editDetails);
 		points = (TextView) findViewById(R.id.pointValue);
 		
 		try {
@@ -217,6 +273,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			chore.put("description", description.getText().toString());
 			chore.put("date", dateText);
 			chore.put("points", points.getText());
+			chore.put("millis", timeInMillis);
 			return chore;
 		} catch (JSONException e) {
 			System.err.println("ERROR: Failed to create chore: " + e.getMessage());
@@ -240,7 +297,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			int day = c.get(Calendar.DAY_OF_MONTH);
 
 			// Create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(), (AddChoreActivity)getActivity(), year, month, day);
+			return new DatePickerDialog(getActivity(), (AddChoreActivity) getActivity(), year, month, day);
 		}
 
 	}
@@ -294,6 +351,7 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 				public void onClick(DialogInterface dialog, int which) {
 					TextView pointValue = (TextView) getActivity().findViewById(R.id.pointValue);
 					pointValue.setText(Integer.toString(numPicker.getValue()));
+					pointValue.setTextColor(getResources().getColor(R.color.DodgerBlue));
 					
 				}
 			});

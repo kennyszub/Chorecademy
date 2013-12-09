@@ -1,68 +1,110 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class SetReward extends Activity implements OnClickListener {
+public class SetReward extends Activity {
 
-	EditText reward_name;
-	EditText reward_cost;
-	TextView view_reward_name;
-	TextView view_reward_cost;
+
 	static String filename = "RewardInfo";
-	SharedPreferences prefs;
 	Button btn;
+	private Context context;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_set_reward);
-		prefs = getSharedPreferences(filename, 0); // retrieves and holds contents of the name file, 0 sets a writable mode
-		setupVariables();
-	}
-
-	public void setupVariables() {
-		btn = (Button)findViewById(R.id.save_button);
-		
-		reward_name = (EditText)findViewById(R.id.reward_name);
-		reward_cost = (EditText)findViewById(R.id.reward_cost);
-		
-		view_reward_name = (TextView)findViewById(R.id.load_cost);
-		view_reward_cost = (TextView)findViewById(R.id.load_name);
-		
-		btn.setOnClickListener(this); // set the button here
+		saveReward();
+		context = this;
 	}
 	
-	public void onClick(View v) {
-		switch (v.getId()) {
+	public JSONObject getFieldData() {
+		TextView name, description, points;
+		name = (TextView) findViewById(R.id.reward_name);
+		description = (TextView) findViewById(R.id.reward_details);
+		points = (TextView) findViewById(R.id.reward_cost);
 		
-		case R.id.save_button:
-			SharedPreferences.Editor editor = prefs.edit();
-			String name = reward_name.getText().toString();
-			String cost = reward_cost.getText().toString();	
-			editor.putString("name", name);
-			editor.putString("cost", cost);
-			editor.commit();
-		break;
-		
-		case R.id.load_button:
-			prefs = getSharedPreferences(filename, 0);
-			String load_name = prefs.getString("name", "couldnt get name");
-			String load_cost = prefs.getString("cost", "couldnt get cost");
-			view_reward_name.setText(load_name);
-			view_reward_cost.setText(load_cost);
-		break;
+		try {
+			JSONObject reward = new JSONObject();
+			reward.put("name", name.getText().toString());
+			reward.put("description", description.getText().toString());
+			reward.put("points", points.getText());
+			reward.put("claims", "false");
+			return reward;
+		} catch (JSONException e) {
+			System.err.println("ERROR: Failed to create reward: " + e.getMessage());
+			System.exit(1);
+			return null;
 		}
 	}
-	
+
+	protected void saveReward() {
+		final Button addReward = (Button) findViewById(R.id.addReward);
+		//add intent for going back to main parent
+		addReward.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {				
+				JSONObject rewardInfo = getFieldData();
+				try {
+					if (rewardInfo.getString("name").isEmpty() ||
+						rewardInfo.getString("description").isEmpty() ||
+						rewardInfo.getString("points").isEmpty()) {
+
+						CharSequence text = "Please fill in all fields";
+						int duration = Toast.LENGTH_SHORT;
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
+					} else {
+						DataModel.addReward(context, rewardInfo);
+						finish();
+					}
+				} catch (JSONException e) {
+					System.err.println("ERROR: malformed choreInfo");
+					System.exit(1);
+				}	
+			}
+		});
+		
+	}
+/*	
+	protected void resaveReward() {
+		final Button resaveReward = (Button) findViewById(R.id.resaveReward);
+	    resaveReward.setOnClickListener(new OnClickListener() {
+			@Override
+
+			public void onClick(View v) {				
+
+				TextView name, description, points;
+				name = (TextView) findViewById(R.id.reward_name);
+				description = (TextView) findViewById(R.id.reward_details);
+				points = (TextView) findViewById(R.id.reward_cost);
+				
+				try {
+					if (
+
+
+					} else {
+						DataModel.addReward(context, rewardInfo);
+						finish();
+					}
+				} catch (JSONException e) {
+					System.err.println("ERROR: malformed choreInfo");
+					System.exit(1);
+				}	
+			}
+		});
+	}
+*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

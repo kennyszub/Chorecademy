@@ -48,6 +48,11 @@ public class RewardsListViewAdapter extends BaseAdapter {
 		return 0;
 	}
 	
+	public void updateList(ArrayList<HashMap<String, String>> list) {
+		this.list = list;
+		notifyDataSetChanged();
+	}
+	
 	private class ViewHolder {
          TextView reward;
          TextView value;

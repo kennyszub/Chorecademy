@@ -5,6 +5,7 @@ public class Constants {
 	    public static final String CHORE = "CHORE";
 	    public static final String DATE = "DATE";
 	    public static final String POINTS = "POINTS";
+	    public static final String MILLIS = "MILLIS";
 	    
 	    public static final String MODE = "MODE";
 	    public static final String PARENT = "PARENT";

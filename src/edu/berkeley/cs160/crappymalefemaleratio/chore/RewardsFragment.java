@@ -14,7 +14,10 @@ import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.annotation.SuppressLint;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -29,12 +32,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class RewardsFragment extends Fragment {
     private Activity activity;
     private ArrayList<HashMap<String, String>> list;
     private String mode;
+    RewardsListViewAdapter adapter;
     
 	public RewardsFragment() {
 	}
@@ -59,7 +63,7 @@ public class RewardsFragment extends Fragment {
     	}
         ListView lview = (ListView) rootView.findViewById(R.id.rewards_listview);
         populateList();
-        RewardsListViewAdapter adapter = new RewardsListViewAdapter(this.getActivity(), list, mode);
+        adapter = new RewardsListViewAdapter(this.getActivity(), list, mode);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
@@ -67,9 +71,19 @@ public class RewardsFragment extends Fragment {
         return rootView;
     }
     
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	populateList();
+    	adapter.updateList(list);
+    }
+    
+
+    
     private void addListenerOnAddChoreButton(View rootView) {
     	final Button addRewardButton = (Button) rootView.findViewById(R.id.addRewardButton);
-    	final Intent i = new Intent(activity, AddChoreActivity.class);
+    	final Intent i = new Intent(activity, SetReward.class);
     	
     	addRewardButton.setOnClickListener(new OnClickListener() {
     		@Override
@@ -113,6 +127,27 @@ public class RewardsFragment extends Fragment {
         cards.put(VALUE, "60 Points");
         cards.put(CLAIM, "false");
         list.add(cards);
+        
+        
+        JSONArray rewards = DataModel.getRewards(activity);
+        JSONObject rewardObject;
+        
+        try {
+	        for (int i = 0; i < rewards.length(); i++) {
+	        	rewardObject = rewards.getJSONObject(i);
+	        	HashMap<String, String> new_reward = new HashMap<String, String>();
+	        	new_reward.put(REWARD, rewardObject.getString("name"));
+	        	new_reward.put(VALUE, rewardObject.getString("points"));
+	            new_reward.put(CLAIM, "false");
+	        	list.add(new_reward);
+	        	System.out.println("printed reward");
+	        }
+        } catch (JSONException e) {
+        	System.err.println("ERROR: Failed to populate list: " + e.getMessage());
+	    	System.exit(1);
+        }                
+
+
     }
 
     private class ItemClickListener implements OnItemClickListener {

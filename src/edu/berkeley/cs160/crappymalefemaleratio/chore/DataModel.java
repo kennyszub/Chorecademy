@@ -1,6 +1,7 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
 import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +41,85 @@ public class DataModel {
 	}
 	
 	
+	public static void addReward(Context context, JSONObject rewardInfo) {
+		try {
+	        JSONObject jsonData = getJSON(context);
+	        System.out.println(jsonData.toString());
+
+	        JSONArray rewards = jsonData.getJSONArray("rewards");
+	        rewards.put(rewardInfo);
+	        saveJSON(context, jsonData);
+		} catch(JSONException e) {
+	    	System.err.println("ERROR: Failed to add reward: " + e.getMessage());
+	    	System.exit(1);
+	    }
+	}
+	
+	
+	public static JSONArray getRewards(Context context) {
+		try {
+	        JSONObject jsonData = getJSON(context);
+	        
+	        System.out.println(jsonData.toString());
+	        
+	        JSONArray rewards = jsonData.getJSONArray("rewards");
+	        return rewards;
+		} catch(JSONException e) {
+	    	System.err.println("ERROR: Failed to get reward: " + e.getMessage());
+	    	System.exit(1);
+	    	return null;
+	    }
+	}
+	
+								// this	     	// "chores"       // "clean room"
+	public static int findIndex(Context context, String directory, String entry_name) 
+	{
+		try 
+		{
+			JSONObject jsonData = getJSON(context); // get master JSON
+			JSONArray jsonSubDirectory = jsonData.getJSONArray(directory); // access the SubDirectory (example: "chores")
+			JSONObject objectCheck = new JSONObject(); // temporary JSON Object used to swap and check every entry
+	
+			for (int i = 0; i < jsonSubDirectory.length(); i++)
+			{
+				objectCheck = jsonSubDirectory.getJSONObject(i);
+				
+				if (objectCheck.getString("name").equals(entry_name))
+				{
+					return i;
+				}
+			}
+			
+			return 999; // 999 indicates that the element was not found
+		}
+		catch(JSONException e)
+		{
+    		System.err.println("ERROR: Failed to index into JSONArray: " + e.getMessage());
+    		System.exit(1);
+    		return 999; // 999 indicates that the element was not found
+		}
+    }
+	
+	
+	public static void claimReward(Context context, String reward_name)
+	{
+		try
+		{
+			JSONObject jsonData = getJSON(context);
+			JSONArray rewards = jsonData.getJSONArray("rewards");
+			int index = findIndex(context, "rewards", reward_name);
+			JSONObject claimed_reward = rewards.getJSONObject(index);
+			// rewards.remove(index);
+			
+		}
+		catch(JSONException e)
+		{
+    		System.err.println("ERROR: Failed to claim reward: " + e.getMessage());
+    		System.exit(1);
+		}
+	}
+	
+	
 	 public static JSONObject getJSON(Context context) {
 		 SharedPreferences preferences = context.getSharedPreferences("chorecademyData", Context.MODE_PRIVATE);
 	    
@@ -56,9 +136,13 @@ public class DataModel {
 				 JSONObject newJson = new JSONObject();
 				 JSONArray rewards = new JSONArray();
 				 JSONArray chores = new JSONArray();
+				 JSONArray claims = new JSONArray();
+				 int userPoints = 0;
 				 
 				 newJson.put("rewards", rewards);
 				 newJson.put("chores", chores);
+				 newJson.put("claims", claims);
+				 newJson.put("userPoints", userPoints);
 				 return newJson;
 			 } else {
 				 return new JSONObject(jsonData);
