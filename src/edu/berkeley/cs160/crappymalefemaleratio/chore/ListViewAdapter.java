@@ -1,19 +1,23 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.*;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MILLIS;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
+import java.util.Calendar;
 
 public class ListViewAdapter extends BaseAdapter {
 	public ArrayList<HashMap<String, String>> list;
@@ -73,15 +77,52 @@ public class ListViewAdapter extends BaseAdapter {
         
         HashMap<String, String> map = list.get(position);
         holder.chore.setText(map.get(CHORE));
-        holder.date.setText(map.get(DATE));
-        // make due date Today red
-        if (map.get(DATE).equals("Today")) {
-        	holder.date.setTextColor(activity.getResources().getColor(R.color.Crimson));
-        }
-        
         holder.points.setText(map.get(POINTS));
 
+        // modify due date texts
+        Calendar currentCalendar = Calendar.getInstance();
+        Calendar choreCalendar = Calendar.getInstance();
+        choreCalendar.setTimeInMillis(Long.parseLong(map.get(MILLIS)));
+
+        if (sameDay(currentCalendar, choreCalendar)) {
+        	holder.date.setText("Today");
+        	holder.date.setTextColor(activity.getResources().getColor(R.color.Crimson));
+        	holder.date.setTypeface(null, Typeface.NORMAL);
+
+        } else if (nextDay(currentCalendar, choreCalendar)) {
+        	holder.date.setText("Tomorrow");
+        	holder.date.setTextColor(activity.getResources().getColor(R.color.LightSlateGray));
+        	holder.date.setTypeface(null, Typeface.NORMAL);
+        } else if (overDue(currentCalendar, choreCalendar)) {
+        	holder.date.setText("Overdue!");
+        	holder.date.setTextColor(activity.getResources().getColor(R.color.Crimson));
+        	holder.date.setTypeface(null, Typeface.BOLD);
+        } else {
+        	holder.date.setText(map.get(DATE));
+        	holder.date.setTextColor(activity.getResources().getColor(R.color.LightSlateGray));
+        	holder.date.setTypeface(null, Typeface.NORMAL);
+        }
+        
         return convertView;
+	}
+	
+	private boolean sameDay(Calendar cal1, Calendar cal2) {
+		boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) ==
+						  cal2.get(Calendar.DAY_OF_YEAR);
+		boolean sameYear = cal1.get(Calendar.YEAR) ==
+						   cal2.get(Calendar.YEAR);
+		return sameDay && sameYear;
+	}
+	
+	/* Return true if cal2 is one day after cal1. */
+	private boolean nextDay(Calendar cal1, Calendar cal2) {
+		cal1.add(Calendar.DATE, 1);
+		return sameDay(cal1, cal2);
+	}
+	
+	/* Return true if cal2 is before cal1. */
+	private boolean overDue(Calendar cal1, Calendar cal2) {
+		return cal2.getTimeInMillis() < cal1.getTimeInMillis();
 	}
 
 }

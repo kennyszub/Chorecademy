@@ -4,11 +4,15 @@ import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MILLIS;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,8 +105,10 @@ public class ChoresFragment extends Fragment {
 	        	chore.put(DESCRIPTION, choreObject.getString("description"));
 	        	chore.put(DATE, choreObject.getString("date"));
 	        	chore.put(POINTS, choreObject.getString("points"));
+	        	chore.put(MILLIS, choreObject.getString("millis"));
 	        	list.add(chore);
 	        }
+	        Collections.sort(list, new MapComparator(MILLIS));
         } catch (JSONException e) {
         	System.err.println("ERROR: Failed to populate list: " + e.getMessage());
 	    	System.exit(1);
@@ -121,6 +127,26 @@ public class ChoresFragment extends Fragment {
     		activity.startActivity(intent);
     	}
     }
+    
+    class MapComparator implements Comparator<Map<String, String>>
+    {
+        private final String key;
+
+        public MapComparator(String key)
+        {
+            this.key = key;
+        }
+
+        public int compare(Map<String, String> first,
+                           Map<String, String> second)
+        {
+            // TODO: Null checking, both for maps and values
+            Long firstDate = Long.parseLong(first.get(key));
+            Long secondDate = Long.parseLong(second.get(key));
+            return firstDate.compareTo(secondDate);
+        }
+    }
+    
     
     
 

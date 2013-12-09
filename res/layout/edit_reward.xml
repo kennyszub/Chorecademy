@@ -9,22 +9,20 @@
     tools:context=".AddChoreActivity" >
 
     <Button
-        android:id="@+id/addReward"
+        android:id="@+id/resaveReward"
         style="@style/BlueStyleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="Add this Reward" 
-        android:onClick="rewardSave" />
+        android:onClick="rewardSave"
+        android:text="Save Reward" />
 
     <EditText
         android:id="@+id/reward_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/addReward"
-        android:layout_alignLeft="@+id/addReward"
+        android:layout_above="@+id/resaveReward"
         android:layout_marginBottom="76dp"
         android:ems="10"
         android:hint="Enter details here"
@@ -90,5 +88,17 @@
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/delete_reward"
+        style="@style/BlueStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/resaveReward"
+        android:layout_alignBottom="@+id/resaveReward"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"
+        android:onClick="rewardSave"
+        android:text="Delete Reward" />
 
 </RelativeLayout>
