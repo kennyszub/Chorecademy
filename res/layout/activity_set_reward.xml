@@ -6,68 +6,89 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SetReward" >
+    tools:context=".AddChoreActivity" >
 
+    <Button
+        android:id="@+id/addReward"
+        style="@style/BlueStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Add this Reward" 
+        android:onClick="rewardSave" />
+
+    <EditText
+        android:id="@+id/reward_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addReward"
+        android:layout_alignLeft="@+id/addReward"
+        android:layout_marginBottom="76dp"
+        android:ems="10"
+        android:hint="Enter details here"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black" />
+
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reward_details"
+        android:layout_alignLeft="@+id/reward_details"
+        android:text="Reward Details"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/choreName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView03"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="34dp"
+        android:text="Reward Name"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/reward_cost"
+        android:layout_below="@+id/reward_name"
+        android:layout_marginTop="22dp"
+        android:text="Reward Cost"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/reward_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/reward_name"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
+        android:layout_alignLeft="@+id/TextView03"
+        android:layout_below="@+id/TextView01"
         android:ems="10"
-        android:text="Enter cost (in points)" >
-
-        <requestFocus />
-    </EditText>
+        android:hint="Enter cost"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black" />
 
     <EditText
         android:id="@+id/reward_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/choreName"
+        android:layout_below="@+id/choreName"
         android:ems="10"
-        android:text="Enter reward name" />
+        android:hint="Enter reward name!"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black" >
 
-    <Button
-        android:id="@+id/load_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/reward_name"
-        android:layout_below="@+id/reward_name"
-        android:layout_marginTop="80dp"
-        android:text="load" />
-
-    <Button
-        android:id="@+id/save_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/load_button"
-        android:layout_alignBottom="@+id/load_button"
-        android:layout_alignRight="@+id/reward_name"
-        android:text="Save" />
-
-    <TextView
-        android:id="@+id/load_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/load_button"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="33dp"
-        android:text="load_name" />
-
-    <TextView
-        android:id="@+id/load_cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/load_name"
-        android:layout_alignBottom="@+id/load_name"
-        android:layout_alignRight="@+id/save_button"
-        android:text="load_cost" />
-
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

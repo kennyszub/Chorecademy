@@ -40,6 +40,37 @@ public class DataModel {
 	}
 	
 	
+	public static void addReward(Context context, JSONObject rewardInfo) {
+		try {
+	        JSONObject jsonData = getJSON(context);
+	        System.out.println(jsonData.toString());
+
+	        JSONArray rewards = jsonData.getJSONArray("rewards");
+	        rewards.put(rewardInfo);
+	        saveJSON(context, jsonData);
+		} catch(JSONException e) {
+	    	System.err.println("ERROR: Failed to add reward: " + e.getMessage());
+	    	System.exit(1);
+	    }
+	}
+	
+	
+	public static JSONArray getRewards(Context context) {
+		try {
+	        JSONObject jsonData = getJSON(context);
+	        
+	        System.out.println(jsonData.toString());
+	        
+	        JSONArray rewards = jsonData.getJSONArray("rewards");
+	        return rewards;
+		} catch(JSONException e) {
+	    	System.err.println("ERROR: Failed to get reward: " + e.getMessage());
+	    	System.exit(1);
+	    	return null;
+	    }
+	}
+	
+	
 	 public static JSONObject getJSON(Context context) {
 		 SharedPreferences preferences = context.getSharedPreferences("chorecademyData", Context.MODE_PRIVATE);
 	    
