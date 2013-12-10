@@ -147,7 +147,6 @@ public class RewardsFragment extends Fragment {
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     		
     		JSONArray rewards = DataModel.getRewards(activity);
     		JSONObject rewardObject;

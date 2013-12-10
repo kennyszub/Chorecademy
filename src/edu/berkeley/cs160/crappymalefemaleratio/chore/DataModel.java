@@ -130,6 +130,29 @@ public class DataModel {
     		System.exit(1);
 		}
 	}
+	/* Takes id of chore object, and url of picture, and adds the url to that chore object. */
+	public static void addURL(Context context, long id, String url) {
+		try {
+			JSONObject jsonData = getJSON(context);
+			JSONArray chores = jsonData.getJSONArray("chores");
+			JSONObject chore;
+			String choreID;
+			for (int i = 0; i < chores.length(); i++) {
+				chore = chores.getJSONObject(i);
+				choreID = chore.getString("id");
+				if (choreID.equals(id)) {
+					chore.put("url", url);
+					break;
+				}
+			}
+			
+	        saveJSON(context, jsonData);
+
+		} catch (JSONException e) {
+			System.err.println("ERROR: Could not add url: " + e.getMessage());
+    		System.exit(1);
+		}
+	}
 	
 	
 	 public static JSONObject getJSON(Context context) {
@@ -155,6 +178,7 @@ public class DataModel {
 				 newJson.put("chores", chores);
 				 newJson.put("claims", claims);
 				 newJson.put("userPoints", userPoints);
+				 newJson.put("url", "");
 				 return newJson;
 			 } else {
 				 return new JSONObject(jsonData);

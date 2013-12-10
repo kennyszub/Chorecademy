@@ -273,7 +273,12 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			chore.put("description", description.getText().toString());
 			chore.put("date", dateText);
 			chore.put("points", points.getText());
+			// Note: "millis" represents when the chore is DUE. "id" is just a unique id
 			chore.put("millis", timeInMillis);
+			
+			long id = System.currentTimeMillis();
+			chore.put("id", id);
+			
 			return chore;
 		} catch (JSONException e) {
 			System.err.println("ERROR: Failed to create chore: " + e.getMessage());

@@ -18,6 +18,7 @@ public class StartActivity extends Activity {
         addListenerOnParentButton();
 	}
 	
+	
 	private void addListenerOnChildButton() {
         final Button childButton = (Button) findViewById(R.id.childButton);
 		final Intent i = new Intent(this, ChildActivity.class);

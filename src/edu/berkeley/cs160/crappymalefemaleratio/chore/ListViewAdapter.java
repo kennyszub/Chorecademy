@@ -49,17 +49,18 @@ public class ListViewAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 	
-	private class ViewHolder {
-         TextView chore;
-         TextView date;
-         TextView points;
-    }
+//	private class ViewHolder {
+//         TextView chore;
+//         TextView date;
+//         TextView points;
+//    }
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder holder;
         LayoutInflater inflater = activity.getLayoutInflater();
+        HashMap<String, String> map = list.get(position);
 
         if (convertView == null)
         {
@@ -68,6 +69,7 @@ public class ListViewAdapter extends BaseAdapter {
             holder.chore = (TextView) convertView.findViewById(R.id.Chore);
             holder.date = (TextView) convertView.findViewById(R.id.Date);
             holder.points = (TextView) convertView.findViewById(R.id.Points);
+            holder.id = Long.parseLong(map.get("id"));
             convertView.setTag(holder);
         }
         else
@@ -75,7 +77,6 @@ public class ListViewAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        HashMap<String, String> map = list.get(position);
         holder.chore.setText(map.get(CHORE));
         holder.points.setText(map.get(POINTS));
 

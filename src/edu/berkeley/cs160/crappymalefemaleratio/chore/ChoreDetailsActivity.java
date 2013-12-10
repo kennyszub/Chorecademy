@@ -28,6 +28,8 @@ public class ChoreDetailsActivity extends Activity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 0;
 	public Uri ourURI;
 	
+	private long choreID;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +71,8 @@ public class ChoreDetailsActivity extends Activity {
 		    chore_description = session.getString(DESCRIPTION);
 		    chore_duedate = session.getString(DATE);
 		    chore_points = session.getString(POINTS);
+		    choreID = session.getLong("id");
+
 		    
 		    // Set variables to TextView
 		    TextView choreName, choreDescription, choreDuedate, chorePoints;
@@ -139,6 +143,7 @@ public class ChoreDetailsActivity extends Activity {
         		Toast.makeText(this, "Image saved to:\n" +
                         ourURI, Toast.LENGTH_LONG).show();
             	
+        		DataModel.addURL(this, choreID, ourURI.toString());
                 //System.out.println(data.toString());
         	} else {
         		System.out.println("CameraDemo Pics Not Saved ");

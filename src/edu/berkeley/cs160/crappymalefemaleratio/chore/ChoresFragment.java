@@ -106,6 +106,7 @@ public class ChoresFragment extends Fragment {
 	        	chore.put(DATE, choreObject.getString("date"));
 	        	chore.put(POINTS, choreObject.getString("points"));
 	        	chore.put(MILLIS, choreObject.getString("millis"));
+	        	chore.put("id", choreObject.getString("id"));
 	        	list.add(chore);
 	        }
 	        Collections.sort(list, new MapComparator(MILLIS));
@@ -118,13 +119,19 @@ public class ChoresFragment extends Fragment {
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		HashMap<String, String> itemMap = list.get(position);
+    		ViewHolder holder = (ViewHolder) view.getTag();
+    		
+			HashMap<String, String> itemMap = list.get(position);
     		Intent intent = new Intent(activity, ChoreDetailsActivity.class);
     		intent.putExtra(CHORE, itemMap.get(CHORE));
     		intent.putExtra(DESCRIPTION, itemMap.get(DESCRIPTION));
     		intent.putExtra(DATE, itemMap.get(DATE));
     		intent.putExtra(POINTS, itemMap.get(POINTS));
-    		activity.startActivity(intent);
+    		intent.putExtra("id", holder.id);
+            
+        	activity.startActivity(intent);
+
+    		
     	}
     }
     
