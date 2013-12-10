@@ -123,7 +123,8 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	            //Yes button clicked
 	            	        	System.out.println("REWARD: "+reward+", ID: "+ id);
 	            	        	DataModel.claimReward(context, id);
-	            	        	lView.invalidateViews();
+	            	            dialog.dismiss();
+	            	            // ((RewardsFragment) activity).onResume();
 	            	            break;
 
 	            	        case DialogInterface.BUTTON_NEGATIVE:

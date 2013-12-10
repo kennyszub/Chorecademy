@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ClaimsFragment extends Fragment {
@@ -57,6 +58,11 @@ public class ClaimsFragment extends Fragment {
 		rootView = inflater.inflate(R.layout.activity_child_claims_fragment, container, false);
         lview = (ListView) rootView.findViewById(R.id.claims_listview);
         populateList();
+        /* Display default "No Claims" image if no claims */
+        if(list.size() == 0){
+        	ImageView noClaims = (ImageView) rootView.findViewById(R.id.noClaimsImage);
+        	noClaims.setVisibility(View.VISIBLE);
+        }
         ClaimsListViewAdapter adapter = new ClaimsListViewAdapter(this.getActivity(), list);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());

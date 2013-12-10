@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ChoresFragment extends Fragment {
@@ -62,6 +63,11 @@ public class ChoresFragment extends Fragment {
     	}
         ListView lview = (ListView) rootView.findViewById(R.id.listview);
         populateList();
+        /* Display default "No Chores" image if no chores */
+        if(list.size() == 0){
+        	ImageView noChores = (ImageView) rootView.findViewById(R.id.noChoresImage);
+        	noChores.setVisibility(View.VISIBLE);
+        }
         listViewAdapter = new ListViewAdapter(this.getActivity(), list);
         lview.setAdapter(listViewAdapter);
         lview.setOnItemClickListener(new ItemClickListener());

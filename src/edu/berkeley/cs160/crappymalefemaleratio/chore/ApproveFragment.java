@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class ApproveFragment extends Fragment {
@@ -48,6 +49,11 @@ public class ApproveFragment extends Fragment {
 		rootView = inflater.inflate(R.layout.activity_parent_approve_fragment, container, false);
         lview = (ListView) rootView.findViewById(R.id.approve_listview);
         populateList();
+        /* Display default "Nothing to Approve" image if no chores to approve */
+        if(list.size() == 0){
+        	ImageView noApprove = (ImageView) rootView.findViewById(R.id.noApproveImage);
+        	noApprove.setVisibility(View.VISIBLE);
+        }
         ApproveListViewAdapter adapter = new ApproveListViewAdapter(this.getActivity(), list);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());

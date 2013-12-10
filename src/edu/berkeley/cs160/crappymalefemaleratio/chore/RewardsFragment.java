@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -65,6 +66,11 @@ public class RewardsFragment extends Fragment {
     		/* Modify Reward Bar */
     		generateRewardBar(rootView);
         }
+        /* Display default "No Rewards" image if no rewards */
+        if(list.size() == 0){
+        	ImageView noRewards = (ImageView) rootView.findViewById(R.id.noRewardsImage);
+        	noRewards.setVisibility(View.VISIBLE);
+        }
         
         adapter = new RewardsListViewAdapter(this.getActivity(), lview, list, mode, context);
         lview.setAdapter(adapter);
@@ -99,7 +105,7 @@ public class RewardsFragment extends Fragment {
     private void generateRewardBar(View v){
     	ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.RewardBar);
 		TextView nextReward = (TextView) v.findViewById(R.id.RewardBarItem);
-		int userPoints = 999999; //DataModel.getUserPoints(context);
+		int userPoints = DataModel.getUserPoints(context);
 		int minPoints = (int) Double.POSITIVE_INFINITY;
 		String hashKey, nextRewardName = "";
 		HashMap<String, String> hash;
