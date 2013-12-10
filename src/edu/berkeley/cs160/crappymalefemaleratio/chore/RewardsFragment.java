@@ -35,7 +35,7 @@ public class RewardsFragment extends Fragment {
     private String mode;
     RewardsListViewAdapter adapter;
     Context context;
-
+    private View thisView;
     
 	public RewardsFragment() {
 	}
@@ -59,6 +59,7 @@ public class RewardsFragment extends Fragment {
     		rootView = inflater.inflate(R.layout.activity_parent_rewards_fragment, container, false);
     		addListenerOnAddChoreButton(rootView);
     	}
+    	thisView = rootView;
         ListView lview = (ListView) rootView.findViewById(R.id.rewards_listview);
         populateList();
         
@@ -85,6 +86,10 @@ public class RewardsFragment extends Fragment {
     public void onResume() {
     	super.onResume();
     	populateList();
+    	if(list.size() > 0){
+	    	ImageView noRewards = (ImageView) thisView.findViewById(R.id.noRewardsImage);
+	    	noRewards.setVisibility(View.GONE);
+    	}
     	adapter.updateList(list);
     }
     
