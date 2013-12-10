@@ -140,7 +140,7 @@ public class DataModel {
 			for (int i = 0; i < chores.length(); i++) {
 				chore = chores.getJSONObject(i);
 				choreID = chore.getString("id");
-				if (choreID.equals(id)) {
+				if (choreID.equals(Long.toString(id))) {
 					chore.put("url", url);
 					break;
 				}
@@ -158,7 +158,7 @@ public class DataModel {
 	 public static JSONObject getJSON(Context context) {
 		 SharedPreferences preferences = context.getSharedPreferences("chorecademyData", Context.MODE_PRIVATE);
 	    
-		 //  uncomment to clear preferences
+//		   uncomment to clear preferences
 //		 Editor edit = preferences.edit();
 //	     edit.clear();
 //	     edit.commit();
@@ -178,7 +178,6 @@ public class DataModel {
 				 newJson.put("chores", chores);
 				 newJson.put("claims", claims);
 				 newJson.put("userPoints", userPoints);
-				 newJson.put("url", "");
 				 return newJson;
 			 } else {
 				 return new JSONObject(jsonData);
