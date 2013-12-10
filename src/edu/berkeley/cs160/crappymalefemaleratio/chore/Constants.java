@@ -15,9 +15,11 @@ public class Constants {
 	    public static final String REWARD = "REWARD";
 	    public static final String VALUE = "VALUE";
 	    public static final String CLAIM = "CLAIM";
+	    public static final String ID = "ID";
 	    
 	    public static final String CLAIMED_REWARD = "CLAIMED_REWARD";
 	    public static final String CLAIMED_VALUE = "CLAIMED_VALUE";
 	    public static final String CLAIMED_CLAIM = "CLAIMED_CLAIM";
+	    public static final String CLAIMED_ID = "CLAIMED_ID";
 	}
 }

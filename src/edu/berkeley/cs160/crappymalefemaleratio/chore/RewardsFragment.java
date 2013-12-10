@@ -1,14 +1,6 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHILD;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.REWARD;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.VALUE;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIM;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.*;
 
 
 import java.util.ArrayList;
@@ -20,6 +12,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -40,6 +33,7 @@ public class RewardsFragment extends Fragment {
     private ArrayList<HashMap<String, String>> list;
     private String mode;
     RewardsListViewAdapter adapter;
+    Context context;
 
     
 	public RewardsFragment() {
@@ -51,8 +45,9 @@ public class RewardsFragment extends Fragment {
     	
     	Bundle settings = this.getArguments();
     	mode = settings.getString(MODE);
-    	
         activity = this.getActivity();
+        context = activity.getApplicationContext();
+        
     	View rootView, rowView = null;
 
 		// Use child chores fragment
@@ -71,7 +66,7 @@ public class RewardsFragment extends Fragment {
     		generateRewardBar(rootView);
         }
         
-        adapter = new RewardsListViewAdapter(this.getActivity(), list, mode);
+        adapter = new RewardsListViewAdapter(this.getActivity(), lview, list, mode, context);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
@@ -104,29 +99,39 @@ public class RewardsFragment extends Fragment {
     private void generateRewardBar(View v){
     	ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.RewardBar);
 		TextView nextReward = (TextView) v.findViewById(R.id.RewardBarItem);
-		int userPoints = 66; // Temporary 
+		int userPoints = 999999; //DataModel.getUserPoints(context);
 		int minPoints = (int) Double.POSITIVE_INFINITY;
 		String hashKey, nextRewardName = "";
 		HashMap<String, String> hash;
 		int hashValue, pointsToReward, percentageOfBar;
+		boolean hasNextReward = false;
 		/* Note: Replace list with the JSONArray for "rewards" in the future */
 		for(int i=0; i<list.size(); i++){
 			hash = list.get(i);
 			hashKey = (String) hash.get(REWARD);
 			hashValue = Integer.parseInt(hash.get(VALUE));
 			if((hashValue < minPoints) && (userPoints < hashValue)){
+				hasNextReward = true;
 				nextRewardName = hashKey;
 				minPoints = hashValue;
 			}
 		}
 		if(list.size() > 0){
-    		if(userPoints < minPoints){
-    			percentageOfBar = (int)(((double) userPoints)/minPoints * 100);
-    		}else{
-    			percentageOfBar = 0;
-    		}
-    		progressBar.setProgress(percentageOfBar);
-    		nextReward.setText(nextRewardName+" ("+percentageOfBar +"/"+minPoints+")");
+			if(hasNextReward){
+	    		if(userPoints < minPoints){
+	    			percentageOfBar = (int)(((double) userPoints)/minPoints * 100);
+	    		}else{
+	    			percentageOfBar = 0;
+	    		}
+	    		progressBar.setProgress(percentageOfBar);
+	    		nextReward.setText(nextRewardName+" ("+percentageOfBar +"/"+minPoints+")");
+			}else{
+	    		progressBar.setProgress(100);
+	    		nextReward.setText(userPoints+"/--");
+			}
+		}else{
+    		progressBar.setProgress(0);
+    		nextReward.setText(userPoints+"/--");
 		}
     }
     /** Populate list items. */
@@ -136,12 +141,14 @@ public class RewardsFragment extends Fragment {
         
         // TEMP VALUES
         // TODO temp hack to remove iPad
+        /*
         Bundle settings = this.getArguments();
         if (settings.getString("iPad") == null) {
             HashMap<String, String> ipad = new HashMap<String, String>();
             ipad.put(REWARD,"iPad");
             ipad.put(VALUE, "400");
             ipad.put(CLAIM, "false");
+            ipad.put(ID, "12345603");
             list.add(ipad);
         }
         
@@ -149,19 +156,23 @@ public class RewardsFragment extends Fragment {
         ps3.put(REWARD,"PS3");
         ps3.put(VALUE, "300");
         ps3.put(CLAIM, "false");
+        ps3.put(ID, "12345604");
         list.add(ps3);
 
         HashMap<String, String> legos = new HashMap<String, String>();
         legos.put(REWARD,"Lego Set");
         legos.put(VALUE, "100");
         legos.put(CLAIM, "false");
+        legos.put(ID, "12345605");
         list.add(legos);
 
         HashMap<String, String> cards = new HashMap<String, String>();
         cards.put(REWARD,"Trading Cards");
         cards.put(VALUE, "60");
         cards.put(CLAIM, "false");
+        cards.put(ID, "12345606");
         list.add(cards);
+        */
         
         
         JSONArray rewards = DataModel.getRewards(activity);
@@ -172,16 +183,16 @@ public class RewardsFragment extends Fragment {
 	        	rewardObject = rewards.getJSONObject(i);
 	        	HashMap<String, String> new_reward = new HashMap<String, String>();
 	        	new_reward.put(REWARD, rewardObject.getString("name"));
-	        	new_reward.put(VALUE, rewardObject.getString("points") + " Points");
+	        	new_reward.put(VALUE, rewardObject.getString("points"));
+	        	new_reward.put(ID, rewardObject.getString("id"));
 	            new_reward.put(CLAIM, "false");
 	        	list.add(new_reward);
-	        	System.out.println("printed reward");
 	        }
         } catch (JSONException e) {
         	System.err.println("ERROR: Failed to populate list: " + e.getMessage());
 	    	System.exit(1);
         }                
-
+	
 
     }
 
@@ -191,13 +202,13 @@ public class RewardsFragment extends Fragment {
     		
     		JSONArray rewards = DataModel.getRewards(activity);
     		JSONObject rewardObject;
-    		
-    		
+
     		HashMap<String, String> itemMap = list.get(position);
     		
     		Intent intent = new Intent(activity, SetReward.class);
     		intent.putExtra(REWARD, itemMap.get(REWARD));
     		intent.putExtra(VALUE, itemMap.get(VALUE));
+    		intent.putExtra(ID, itemMap.get(ID));
 
     		activity.startActivity(intent);
     	}

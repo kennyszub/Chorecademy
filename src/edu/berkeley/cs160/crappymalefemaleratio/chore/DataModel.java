@@ -11,6 +11,18 @@ import android.content.SharedPreferences.Editor;
 
 public class DataModel {
 	
+	public static int getUserPoints(Context context){
+		try {
+	        JSONObject jsonData = getJSON(context);
+	        int userPoints = (Integer) jsonData.get("userPoints");
+	        return userPoints;
+		} catch(JSONException e) {
+	    	System.err.println("ERROR: Failed to get user points: " + e.getMessage());
+	    	System.exit(1);
+	    	return 0;
+	    }
+	}
+	
 	public static void addChore(Context context, JSONObject choreInfo) {
 		try {
 	        JSONObject jsonData = getJSON(context);
@@ -70,6 +82,19 @@ public class DataModel {
 	    	return null;
 	    }
 	}
+
+	public static JSONArray getClaims(Context context) {
+		try {
+	        JSONObject jsonData = getJSON(context);
+	        System.out.println(jsonData.toString());
+	        JSONArray claims = jsonData.getJSONArray("claims");
+	        return claims;
+		} catch(JSONException e) {
+	    	System.err.println("ERROR: Failed to get claim: " + e.getMessage());
+	    	System.exit(1);
+	    	return null;
+	    }
+	}
 	
 								// this	     	// "chores"       // "clean room"
 	public static int findIndex(Context context, String directory, String entry_name) 
@@ -99,33 +124,59 @@ public class DataModel {
     		return 999; // 999 indicates that the element was not found
 		}
     }
+
+	public static int findIndexById(Context context, String directory, String id) {
+		try {
+			JSONObject jsonData = getJSON(context); // get master JSON
+			JSONArray jsonSubDirectory = jsonData.getJSONArray(directory); // access the SubDirectory (example: "chores")
+			JSONObject objectCheck = new JSONObject(); // temporary JSON Object used to swap and check every entry
 	
+			for (int i = 0; i < jsonSubDirectory.length(); i++) {
+				objectCheck = jsonSubDirectory.getJSONObject(i);
+				if (objectCheck.getString("id").equals(id)) {
+					return i;
+				}
+			}
+			return 999; // 999 indicates that the element was not found
+		} catch(JSONException e) {
+    		System.err.println("ERROR: Failed to index into JSONArray: " + e.getMessage());
+    		System.exit(1);
+    		return 999; // 999 indicates that the element was not found
+		}
+    }
 	
-	public static void claimReward(Context context, String reward_name)
-	{
-		try
-		{
+	public static void claimReward(Context context, String id) {
+		try {
 			JSONObject jsonData = getJSON(context);
 			JSONArray rewards = jsonData.getJSONArray("rewards");
 			JSONArray claims = jsonData.getJSONArray("claims");
-			int index = findIndex(context, "rewards", reward_name);
-			JSONObject claimed_reward = rewards.getJSONObject(index);
-			// rewards.remove(index);
+			int removeIndex = findIndexById(context, "rewards", id);
+			JSONObject claimed_reward = rewards.getJSONObject(removeIndex);
 			
+			/* Remove element by creating new JSONArray */
+			JSONArray updatedRewards = new JSONArray();  
+			int rewardsLength = rewards.length();
+			if(rewards != null) { 
+			   for (int i=0;i<rewardsLength;i++) { 
+			        if (i != removeIndex) {
+			        	updatedRewards.put(rewards.get(i));
+			        }
+			   } 
+			}
+			rewards = updatedRewards;
+			jsonData.put("rewards", rewards);
+			claims.put(claimed_reward);
+	        saveJSON(context, jsonData);
+			/*
 			JSONArray rewardsMinusOne = new JSONArray();
-			for (int i = 0; i < rewards.length(); i++)
-			{
+			for (int i = 0; i < rewards.length(); i++) {
 				if (rewards.getJSONObject(i).getString(reward_name).equals(reward_name))
 				rewardsMinusOne.put(rewards.getJSONObject(i));
 			}
-			
 			jsonData.put("rewards", rewardsMinusOne);
 			claims.put(claimed_reward);
-			
-			
-		}
-		catch(JSONException e)
-		{
+			*/
+		} catch(JSONException e) {
     		System.err.println("ERROR: Failed to claim reward: " + e.getMessage());
     		System.exit(1);
 		}

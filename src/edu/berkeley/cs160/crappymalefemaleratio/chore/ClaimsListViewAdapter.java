@@ -68,7 +68,7 @@ public class ClaimsListViewAdapter extends BaseAdapter {
         
         HashMap<String, String> map = list.get(position);
         holder.reward.setText(map.get(CLAIMED_REWARD));
-        holder.value.setText(map.get(CLAIMED_VALUE));
+        holder.value.setText(map.get(CLAIMED_VALUE)+" Points");
         holder.claim.setText("Claimed!");
 
         return convertView;

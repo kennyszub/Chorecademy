@@ -2,17 +2,26 @@ package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHILD;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIM;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.ID;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_REWARD;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_VALUE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_CLAIM;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_ID;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.REWARD;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.VALUE;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -62,6 +71,7 @@ public class ClaimsFragment extends Fragment {
         
         // TEMP VALUES
         // TODO temp hack to remove iPad
+        /*
         Bundle settings = this.getArguments();
         if (settings.getString("iPad") == null) {
             HashMap<String, String> ipad = new HashMap<String, String>();
@@ -82,6 +92,24 @@ public class ClaimsFragment extends Fragment {
         legos.put(CLAIMED_VALUE, "100 Points");
         legos.put(CLAIMED_CLAIM, "false");
         list.add(legos);
+        */
+        
+        JSONArray claims = DataModel.getClaims(activity);
+        JSONObject claimObject;
+        
+        try {
+	        for (int i = 0; i < claims.length(); i++) {
+	        	claimObject = claims.getJSONObject(i);
+	        	HashMap<String, String> new_reward = new HashMap<String, String>();
+	        	new_reward.put(CLAIMED_REWARD, claimObject.getString("name"));
+	        	new_reward.put(CLAIMED_VALUE, claimObject.getString("points"));
+	            new_reward.put(CLAIMED_CLAIM, "false");
+	        	list.add(new_reward);
+	        }
+        } catch (JSONException e) {
+        	System.err.println("ERROR: Failed to populate list: " + e.getMessage());
+	    	System.exit(1);
+        }   
 
     }
     

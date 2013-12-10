@@ -5,18 +5,22 @@ import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.PARENT;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.REWARD;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.VALUE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.ID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +29,16 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	public ArrayList<HashMap<String, String>> list;
     private Activity activity;
     private String mode;
+	private Context context;
+	private ListView lView;
  
-    public RewardsListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, String m) {
+    public RewardsListViewAdapter(Activity activity, ListView l, ArrayList<HashMap<String, String>> list, String m, Context c) {
         super();
         this.activity = activity;
+        this.lView = l;
         this.list = list;
         this.mode = m;
+        this.context = c;
     }
 
 	@Override
@@ -57,6 +65,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
          TextView reward;
          TextView value;
          TextView claim;
+         TextView id;
     }
 
 	@Override
@@ -72,6 +81,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
             holder.reward = (TextView) convertView.findViewById(R.id.Reward);
             holder.value = (TextView) convertView.findViewById(R.id.Value);
             holder.claim = (Button) convertView.findViewById(R.id.Claim);
+            holder.id = (TextView) convertView.findViewById(R.id.Id);
             convertView.setTag(holder);
         }
         else
@@ -82,6 +92,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
         HashMap<String, String> map = list.get(position);
         holder.reward.setText(map.get(REWARD));
         holder.value.setText(map.get(VALUE) + " Points");
+        holder.id.setText(map.get(ID));
 
        if(mode.equals(PARENT)){
         	holder.claim.setVisibility(View.GONE);
@@ -99,8 +110,10 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	RelativeLayout row = (RelativeLayout) claimButton.getParent();
 	            	TextView rewardView = (TextView) row.findViewById(R.id.Reward);
 	            	TextView pointsView = (TextView) row.findViewById(R.id.Value);
-	            	String reward = (String) rewardView.getText();
+	            	TextView idView = (TextView) row.findViewById(R.id.Id);
+	            	final String reward = (String) rewardView.getText();
 	            	String points = (String) pointsView.getText();
+	            	final String id = (String) idView.getText();
 	            	
 	            	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 	            	    @Override
@@ -108,6 +121,9 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	        switch (which){
 	            	        case DialogInterface.BUTTON_POSITIVE:
 	            	            //Yes button clicked
+	            	        	System.out.println("REWARD: "+reward+", ID: "+ id);
+	            	        	DataModel.claimReward(context, id);
+	            	        	lView.invalidateViews();
 	            	            break;
 
 	            	        case DialogInterface.BUTTON_NEGATIVE:

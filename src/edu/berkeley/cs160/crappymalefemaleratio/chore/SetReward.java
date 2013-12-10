@@ -50,6 +50,9 @@ public class SetReward extends Activity {
 			reward.put("description", description.getText().toString());
 			reward.put("points", points.getText());
 			reward.put("claims", "false");
+			long id = System.currentTimeMillis();
+			reward.put("id", id);
+			
 			return reward;
 		} catch (JSONException e) {
 			System.err.println("ERROR: Failed to create reward: " + e.getMessage());

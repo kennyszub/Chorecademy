@@ -28,6 +28,13 @@
         android:textColor="@color/LightSlateGray" />
 
     <TextView
+        android:id="@+id/Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@color/LightSlateGray" />
+    
+    <TextView
         android:id="@+id/Reward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
