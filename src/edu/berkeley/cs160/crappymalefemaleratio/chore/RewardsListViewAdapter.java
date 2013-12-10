@@ -81,7 +81,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
         
         HashMap<String, String> map = list.get(position);
         holder.reward.setText(map.get(REWARD));
-        holder.value.setText(map.get(VALUE));
+        holder.value.setText(map.get(VALUE) + " Points");
 
        if(mode.equals(PARENT)){
         	holder.claim.setVisibility(View.GONE);

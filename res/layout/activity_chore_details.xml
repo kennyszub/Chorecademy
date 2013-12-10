@@ -40,19 +40,6 @@
         android:text="Put your clothes in the washer, and dry and fold them."
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/choreName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="97dp"
-        android:text="Do the Laundry"
-        android:textColor="@color/DodgerBlue"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
     <Button
         android:id="@+id/doneButton"
         style="@style/RedStyleButton"
@@ -73,5 +60,26 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="32dp"
         android:text="Take Picture" />
+
+    <TextView
+        android:id="@+id/choreName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Do the Laundry"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/chorePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/doneButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/choreDescription"
+        android:src="@drawable/ic_launcher" />
     
 </RelativeLayout>
