@@ -335,6 +335,20 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			//int points = numPicker.get
 			
 			
+			/*
+			 * Initialize displayed array values for picker
+			 */
+			int NUMBER_OF_VALUES = 10; //num of values in the picker
+			int PICKER_RANGE = 10;
+
+			String[] displayedValues  = new String[NUMBER_OF_VALUES];
+			//Populate the array
+			for(int i=0; i<NUMBER_OF_VALUES; i++)
+			    displayedValues[i] = String.valueOf(PICKER_RANGE * (i+1));
+			/* OR: if the array is easy to be hard-coded, then just hard-code it:
+			   String[] displayedValues = {"50", "100", "150", .....}; */
+			
+			
 			//newView.addView(numPicker);
 			//newView.setId(9);
 			View ourView = (View) li.inflate(R.layout.number_picker, null);
@@ -343,8 +357,14 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			final NumberPicker numPicker = (NumberPicker) ourView.findViewById(R.id.numberPicker1);
 			System.out.println(numPicker);
 			
+			/*
 			numPicker.setMaxValue(100);
 			numPicker.setMinValue(1);
+			*/
+			numPicker.setMinValue(1); 
+			numPicker.setMaxValue(displayedValues.length-1);
+			numPicker.setDisplayedValues(displayedValues);
+
 			
 			numPicker.setFocusable(true);
 			numPicker.setFocusableInTouchMode(true);
@@ -352,10 +372,13 @@ public class AddChoreActivity extends FragmentActivity implements DatePickerDial
 			builder.setView(ourView);
 			builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
 				
+
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+
+					
 					TextView pointValue = (TextView) getActivity().findViewById(R.id.pointValue);
-					pointValue.setText(Integer.toString(numPicker.getValue()));
+					pointValue.setText(Integer.toString(numPicker.getValue() * 10));
 					pointValue.setTextColor(getResources().getColor(R.color.DodgerBlue));
 					
 				}
