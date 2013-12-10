@@ -40,6 +40,7 @@ public class ChoresFragment extends Fragment {
     
     private String mode;
     private ListViewAdapter listViewAdapter;
+    private View thisView;
     
 	public ChoresFragment() {
 	}
@@ -61,6 +62,7 @@ public class ChoresFragment extends Fragment {
     		rootView = inflater.inflate(R.layout.activity_parent_chores_fragment, container, false);
     		addListenerOnAddChoreButton(rootView);
     	}
+    	thisView = rootView;
         ListView lview = (ListView) rootView.findViewById(R.id.listview);
         populateList();
         /* Display default "No Chores" image if no chores */
@@ -80,6 +82,10 @@ public class ChoresFragment extends Fragment {
     public void onResume() {
     	super.onResume();
     	populateList();
+    	if(list.size() > 0){
+	    	ImageView noChores = (ImageView) thisView.findViewById(R.id.noChoresImage);
+	    	noChores.setVisibility(View.GONE);
+    	}
     	listViewAdapter.updateList(list);
     }
     

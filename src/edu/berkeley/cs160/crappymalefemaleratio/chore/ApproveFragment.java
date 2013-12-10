@@ -32,6 +32,8 @@ public class ApproveFragment extends Fragment {
     private Activity activity;
     private ArrayList<HashMap<String, String>> list;
     private String mode;
+    private View thisView;
+    ApproveListViewAdapter adapter;
     
 	public ApproveFragment() {
 	}
@@ -47,6 +49,7 @@ public class ApproveFragment extends Fragment {
     	ListView lview;
     	
 		rootView = inflater.inflate(R.layout.activity_parent_approve_fragment, container, false);
+		thisView = rootView;
         lview = (ListView) rootView.findViewById(R.id.approve_listview);
         populateList();
         /* Display default "Nothing to Approve" image if no chores to approve */
@@ -54,12 +57,22 @@ public class ApproveFragment extends Fragment {
         	ImageView noApprove = (ImageView) rootView.findViewById(R.id.noApproveImage);
         	noApprove.setVisibility(View.VISIBLE);
         }
-        ApproveListViewAdapter adapter = new ApproveListViewAdapter(this.getActivity(), list);
+        adapter = new ApproveListViewAdapter(this.getActivity(), list);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
         return rootView;
     }
-    
+
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	populateList();
+    	if(list.size() > 0){
+	    	ImageView noApprove = (ImageView) thisView.findViewById(R.id.noApproveImage);
+	    	noApprove.setVisibility(View.GONE);
+    	}
+    	adapter.updateList(list);
+    }
     
     /** Populate list items. */
     private void populateList() {

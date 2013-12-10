@@ -41,6 +41,8 @@ public class ClaimsFragment extends Fragment {
     private Activity activity;
     private ArrayList<HashMap<String, String>> list;
     private String mode;
+    private View thisView;
+    ClaimsListViewAdapter adapter;
     
 	public ClaimsFragment() {
 	}
@@ -56,6 +58,7 @@ public class ClaimsFragment extends Fragment {
     	ListView lview;
     	
 		rootView = inflater.inflate(R.layout.activity_child_claims_fragment, container, false);
+		thisView = rootView;
         lview = (ListView) rootView.findViewById(R.id.claims_listview);
         populateList();
         /* Display default "No Claims" image if no claims */
@@ -63,10 +66,21 @@ public class ClaimsFragment extends Fragment {
         	ImageView noClaims = (ImageView) rootView.findViewById(R.id.noClaimsImage);
         	noClaims.setVisibility(View.VISIBLE);
         }
-        ClaimsListViewAdapter adapter = new ClaimsListViewAdapter(this.getActivity(), list);
+        adapter = new ClaimsListViewAdapter(this.getActivity(), list);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	populateList();
+    	if(list.size() > 0){
+	    	ImageView noClaims = (ImageView) thisView.findViewById(R.id.noClaimsImage);
+	    	noClaims.setVisibility(View.GONE);
+    	}
+    	adapter.updateList(list);
     }
     
     

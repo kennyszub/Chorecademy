@@ -74,4 +74,8 @@ public class ClaimsListViewAdapter extends BaseAdapter {
         return convertView;
 	}
 
+	public void updateList(ArrayList<HashMap<String, String>> list) {
+		this.list = list;
+		notifyDataSetChanged();
+	}
 }
