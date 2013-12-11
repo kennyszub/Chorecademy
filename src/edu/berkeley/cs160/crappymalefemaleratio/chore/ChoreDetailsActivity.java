@@ -11,6 +11,7 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ import android.widget.Toast;
 public class ChoreDetailsActivity extends Activity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 0;
 	public Uri ourURI;
-	
+	Context context;
 	private long choreID;
 	
 	@Override
@@ -35,9 +36,11 @@ public class ChoreDetailsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chore_details);
 		
+		context = getApplicationContext();
 		setTextValues();
 		addListenerOnDoneButton();
 		takePictureListener();
+
 	}
 	private void takePictureListener(){
 	 	/* Take Picture Mode */
@@ -57,6 +60,11 @@ public class ChoreDetailsActivity extends Activity {
 		doneButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				TextView idView = (TextView) findViewById(R.id.choreId);
+            	Long id = Long.parseLong((String) idView.getText());
+            	System.out.println("ID: "+id+"");
+            	
+	        	DataModel.finishChore(context, (String) idView.getText());
 				finish();
 			}
 		});
@@ -75,12 +83,14 @@ public class ChoreDetailsActivity extends Activity {
 
 		    
 		    // Set variables to TextView
-		    TextView choreName, choreDescription, choreDuedate, chorePoints;
+		    TextView choreName, choreDescription, choreDuedate, chorePoints, choreIDValue;
+		    choreIDValue = (TextView) findViewById(R.id.choreId);
 		    choreName = (TextView) findViewById(R.id.choreName);
 		    choreDescription = (TextView) findViewById(R.id.choreDescription);
 		    choreDuedate = (TextView) findViewById(R.id.choreDuedate);
 		    chorePoints = (TextView) findViewById(R.id.chorePoints);
 
+		    choreIDValue.setText(String.valueOf(choreID));
 		    choreName.setText(chore_name);
 		    choreDescription.setText(chore_description);
 		    choreDuedate.setText(chore_duedate);
