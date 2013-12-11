@@ -9,6 +9,10 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -40,6 +44,10 @@ public class ChoreDetailsActivity extends Activity {
 		setTextValues();
 		addListenerOnDoneButton();
 		takePictureListener();
+		
+		
+		showPicture();
+		
 
 	}
 	private void takePictureListener(){
@@ -65,9 +73,6 @@ public class ChoreDetailsActivity extends Activity {
             	System.out.println("ID: "+id+"");
             	
 	        	DataModel.finishChore(context, (String) idView.getText());
-	        	
-	        	System.out.println("USER POINTS: " + DataModel.getUserPoints(context));
-	        	
 				finish();
 			}
 		});
@@ -123,7 +128,7 @@ public class ChoreDetailsActivity extends Activity {
 		imageFolder.mkdirs();
 		if (imageFolder.exists()) {
 			File filename = new File(
-					imageFolder, current_date + ".jpg");
+					imageFolder, current_date + choreID + ".jpg");
 			//filename.mkdirs();
 			//if (filename.exists()) {
 				ourURI = Uri.fromFile(filename);	
@@ -145,12 +150,12 @@ public class ChoreDetailsActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
 
-    	System.out.println("here1");
+    	//System.out.println("here1");
         
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-        	System.out.println("here");
+        	//System.out.println("here");
         	if (resultCode == RESULT_OK) {
-        		System.out.println("here2");
+        		//System.out.println("here2");
         		//Uri ourURI = data.getData();
         		
         		Toast.makeText(this, "Image saved to:\n" +
@@ -167,8 +172,24 @@ public class ChoreDetailsActivity extends Activity {
     
     public void showPicture() {
     	ImageView choreImage = (ImageView) findViewById(R.id.chorePicture);
+    	JSONArray chores = DataModel.getChores(context);
+    	int ourIndex = DataModel.findIndexById(context, "chores", Long.toString(choreID));
+    	try {
+    		//if chores
+    		JSONObject chore = chores.getJSONObject(ourIndex);
+    		if (chore.has("url")) {
+    			String choreURI = chore.getString("url");
+        		ourURI = Uri.parse(choreURI);
+        		choreImage.setImageURI(ourURI);
+    		}
+    		
+    	} catch (JSONException e) {
+    		System.err.println("ERROR: Failed to index into JSONArray In Chore Details: " + e.getMessage());
+    		System.exit(1);
+    		//return 999;
+    	}
     	
-    	choreImage.setImageURI(ourURI);
+    	
     }
 	
 	@Override

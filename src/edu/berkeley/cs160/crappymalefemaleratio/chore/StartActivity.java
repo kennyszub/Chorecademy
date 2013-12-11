@@ -35,7 +35,7 @@ public class StartActivity extends Activity {
 	private void addListenerOnParentButton() {
 
 		final Button parentButton = (Button) findViewById(R.id.parentButton);
-		final Intent i = new Intent(this, ParentActivity.class);
+		final Intent i = new Intent(this, ParentLoginActivity.class);
 
 		parentButton.setOnClickListener(new OnClickListener() {
 			@Override

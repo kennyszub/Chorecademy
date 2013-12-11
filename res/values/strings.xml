@@ -30,5 +30,6 @@
     <string name="add_reward_text">Add Reward</string>
     <string name="title_activity_set_reward">Parent Mode - Add Reward</string>
     <string name="title_activity_child">Child Mode</string>
+    <string name="title_activity_parent_login">Parent Login</string>
 
 </resources>
