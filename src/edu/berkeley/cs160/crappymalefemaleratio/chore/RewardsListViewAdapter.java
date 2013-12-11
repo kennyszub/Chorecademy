@@ -31,6 +31,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
     private String mode;
 	private Context context;
 	private ListView lView;
+	int current_position;
  
     public RewardsListViewAdapter(Activity activity, ListView l, ArrayList<HashMap<String, String>> list, String m, Context c) {
         super();
@@ -45,6 +46,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	public int getCount() {
 		return list.size();
 	}
+	
 
 	@Override
 	public Object getItem(int position) {
@@ -93,6 +95,8 @@ public class RewardsListViewAdapter extends BaseAdapter {
         holder.reward.setText(map.get(REWARD));
         holder.value.setText(map.get(VALUE) + " Points");
         holder.id.setText(map.get(ID));
+        
+        current_position = position;
 
        if(mode.equals(PARENT)){
         	holder.claim.setVisibility(View.GONE);
@@ -123,8 +127,12 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	            //Yes button clicked
 	            	        	System.out.println("REWARD: "+reward+", ID: "+ id);
 	            	        	DataModel.claimReward(context, id);
-	            	            dialog.dismiss();
+
 	            	            // ((RewardsFragment) activity).onResume();
+	            	        	list.remove(current_position);
+	            	        	updateList(list);
+	            	        	
+	            	            dialog.dismiss();
 	            	            break;
 
 	            	        case DialogInterface.BUTTON_NEGATIVE:
@@ -133,6 +141,8 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	        }
 	            	    }
 	            	};
+	            	
+            	
 
 	            	AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 	            	String claim_message = "Claim " + reward + "?";
@@ -141,6 +151,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            }
 	        });
         }
+       
         return convertView;
 	}
 
