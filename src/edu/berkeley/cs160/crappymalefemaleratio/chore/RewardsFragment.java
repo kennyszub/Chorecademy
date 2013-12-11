@@ -79,7 +79,6 @@ public class RewardsFragment extends Fragment {
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
-        
         return rootView;
     }
     
@@ -142,7 +141,7 @@ public class RewardsFragment extends Fragment {
 	    			percentageOfBar = 0;
 	    		}
 	    		progressBar.setProgress(percentageOfBar);
-	    		nextReward.setText(nextRewardName+" ("+percentageOfBar +"/"+minPoints+")");
+	    		nextReward.setText(nextRewardName+" ("+userPoints +"/"+minPoints+")");
 			}else{
 	    		progressBar.setProgress(100);
 	    		nextReward.setText(userPoints+"/--");

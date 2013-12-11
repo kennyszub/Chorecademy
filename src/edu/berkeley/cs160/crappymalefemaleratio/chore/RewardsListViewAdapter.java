@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RewardsListViewAdapter extends BaseAdapter {
 	public ArrayList<HashMap<String, String>> list;
@@ -132,7 +134,8 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	final String reward = (String) rewardView.getText();
 	            	String points = (String) pointsView.getText();
 	            	final String id = (String) idView.getText();
-	            	
+	        		final MediaPlayer mp = MediaPlayer.create(context, R.raw.centuryfox);
+
 	            	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 	            	    @Override
 	            	    public void onClick(DialogInterface dialog, int which) {
@@ -150,6 +153,21 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	        	
 	            	        	
 	            	            dialog.dismiss();
+	            	            mp.start();
+	            	            
+	            	            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(rewardsFragment.getActivity());
+
+	            	            dlgAlert.setMessage("Congrats on your " + reward + "! Go to the claims tab and show your parents you earned your reward!");
+	            	            dlgAlert.setTitle(reward);
+	            	            dlgAlert.setPositiveButton("OK", null);
+	            	            dlgAlert.setCancelable(true);
+	            	            dlgAlert.create().show();
+	            	            dlgAlert.setPositiveButton("OK",
+	            	            	    new DialogInterface.OnClickListener() {
+	            	            	        public void onClick(DialogInterface dialog, int which) {
+	            	            	          //dismiss the dialog  
+	            	            	        }
+	            	            	    });
 	            	            break;
 
 	            	        case DialogInterface.BUTTON_NEGATIVE:
