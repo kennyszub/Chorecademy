@@ -214,6 +214,67 @@ public class DataModel {
 		}
 	}
 	
+	public static void denyFinish(Context context, String id) {
+		try {
+			JSONObject jsonData = getJSON(context);
+			JSONArray chores = jsonData.getJSONArray("chores");
+			JSONArray approvals = jsonData.getJSONArray("approvals");
+			int reAddIndex = findIndexById(context, "approvals", id);
+			JSONObject reAddChore = approvals.getJSONObject(reAddIndex);
+			
+			/* Remove element by creating new JSONArray */
+			JSONArray updatedApprovalList = new JSONArray();  
+			int approvalsLength = approvals.length();
+			if(approvals != null) { 
+			   for (int i=0;i<approvalsLength;i++) { 
+			        if (i != reAddIndex) {
+			        	updatedApprovalList.put(approvals.get(i));
+			        }
+			   } 
+			}
+			approvals = updatedApprovalList;
+			jsonData.put("approvals", approvals);
+			chores.put(reAddChore);
+	        saveJSON(context, jsonData);
+		} catch(JSONException e) {
+    		System.err.println("ERROR: Failed to deny finished chore: " + e.getMessage());
+    		System.exit(1);
+		}
+	}
+	
+	public static void approveFinish(Context context, String id) {
+		try {
+			JSONObject jsonData = getJSON(context);
+			JSONArray approvals = jsonData.getJSONArray("approvals");
+			int finishedIndex = findIndexById(context, "approvals", id);
+			JSONObject finishedChore = approvals.getJSONObject(finishedIndex);
+			
+			
+			// add the points of finished chore to userPoints
+			int add_points = finishedChore.getInt("points");
+			int current_points = jsonData.getInt("userPoints");
+			jsonData.put("userPoints", current_points + add_points);
+			
+			/* Remove element by creating new JSONArray */
+			JSONArray updatedApprovalList = new JSONArray();  
+			int approvalsLength = approvals.length();
+			if(approvals != null) { 
+			   for (int i=0;i<approvalsLength;i++) { 
+			        if (i != finishedIndex) {
+			        	updatedApprovalList.put(approvals.get(i));
+			        }
+			   } 
+			}
+			approvals = updatedApprovalList;
+			jsonData.put("approvals", approvals);
+			
+	        saveJSON(context, jsonData);
+		} catch(JSONException e) {
+    		System.err.println("ERROR: Failed to deny finished chore: " + e.getMessage());
+    		System.exit(1);
+		}
+	}
+	
 	/* Takes id of chore object, and url of picture, and adds the url to that chore object. */
 	public static void addURL(Context context, long id, String url) {
 		try {
