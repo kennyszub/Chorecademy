@@ -1,11 +1,9 @@
 package edu.berkeley.cs160.crappymalefemaleratio.chore;
 
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHILD;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIM;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.ID;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.PARENT;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.REWARD;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.VALUE;
-import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.ID;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +12,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +20,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class RewardsListViewAdapter extends BaseAdapter {
 	public ArrayList<HashMap<String, String>> list;
@@ -106,11 +102,24 @@ public class RewardsListViewAdapter extends BaseAdapter {
        if(mode.equals(PARENT)){
         	holder.claim.setVisibility(View.GONE);
         }else{
-	        if(map.get(CLAIM) == "false"){
-	        	holder.claim.setText("Claim");
+        	
+        	
+        	int userPoints = DataModel.getUserPoints(context);
+        	String string_value = map.get(VALUE);
+        	int value = Integer.parseInt(string_value);
+        	
+	        if(userPoints >= value){
+	        	// Set style holder.claim to BLUE
+	        	holder.claim.setBackgroundResource(R.drawable.blue_button);
+	        	holder.claim.setEnabled(true);
 	        }else{
-	        	holder.claim.setText("Pending");
+	        	// Set to Gray
+	        	// Non clickable
+//	        
+	        	holder.claim.setBackgroundResource(R.drawable.gray_button);
+	        	holder.claim.setEnabled(false);
 	        }
+			
 
 	        final Button claimButton = (Button) holder.claim;//(Button) rowView.findViewById(R.id.Claim);
 	        claimButton.setOnClickListener(new View.OnClickListener() {
