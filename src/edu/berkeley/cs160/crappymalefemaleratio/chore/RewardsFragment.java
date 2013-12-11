@@ -74,6 +74,7 @@ public class RewardsFragment extends Fragment {
         }
         
         adapter = new RewardsListViewAdapter(this.getActivity(), lview, list, mode, context);
+        adapter.setFragment(this);
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
@@ -116,7 +117,6 @@ public class RewardsFragment extends Fragment {
 		HashMap<String, String> hash;
 		int hashValue, pointsToReward, percentageOfBar;
 		boolean hasNextReward = false;
-		/* Note: Replace list with the JSONArray for "rewards" in the future */
 		for(int i=0; i<list.size(); i++){
 			hash = list.get(i);
 			hashKey = (String) hash.get(REWARD);

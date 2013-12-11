@@ -127,6 +127,7 @@ public class ChoresFragment extends Fragment {
 	    	System.exit(1);
         }        
     }
+
     
     private class ItemClickListener implements OnItemClickListener {
     	@Override

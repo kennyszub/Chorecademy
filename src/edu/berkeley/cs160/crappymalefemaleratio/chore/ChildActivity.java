@@ -36,6 +36,7 @@ public class ChildActivity extends FragmentActivity implements
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	private ClaimsFragment claimsFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,15 +121,6 @@ public class ChildActivity extends FragmentActivity implements
 				Fragment choresFragment = new ChoresFragment();
 				Bundle settings = new Bundle();
 				settings.putString(MODE, CHILD);
-				
-				// TODO temp hack to remove laundry
-				if (getIntent().getStringExtra("Laundry") != null) {
-					Bundle session = getIntent().getExtras();
-					if (session.containsKey("Laundry")) {
-						settings.putString("Laundry", "Done");
-					}
-				}
-				//TODO end hack
 
 				choresFragment.setArguments(settings);
 				
@@ -154,7 +146,7 @@ public class ChildActivity extends FragmentActivity implements
 				fragment.setArguments(args);
 				return fragment; */
 			case 2:
-				Fragment claimsFragment = new ClaimsFragment();
+				claimsFragment = new ClaimsFragment();
 				Bundle claimsSettings = new Bundle();
 				claimsSettings.putString(MODE, CHILD);
 				
@@ -184,6 +176,10 @@ public class ChildActivity extends FragmentActivity implements
 			}
 			return null;
 		}
+	}
+	
+	public void refreshClaims() {
+		claimsFragment.onResume();
 	}
 
 	/**
