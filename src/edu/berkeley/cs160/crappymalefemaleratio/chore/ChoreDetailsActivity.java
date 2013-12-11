@@ -173,6 +173,7 @@ public class ChoreDetailsActivity extends Activity {
     public void showPicture() {
     	ImageView choreImage = (ImageView) findViewById(R.id.chorePicture);
     	JSONArray chores = DataModel.getChores(context);
+    	System.out.println("chore ID: "+ choreID);
     	int ourIndex = DataModel.findIndexById(context, "chores", Long.toString(choreID));
     	try {
     		//if chores
