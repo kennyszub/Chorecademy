@@ -65,6 +65,9 @@ public class ChoreDetailsActivity extends Activity {
             	System.out.println("ID: "+id+"");
             	
 	        	DataModel.finishChore(context, (String) idView.getText());
+	        	
+	        	System.out.println("USER POINTS: " + DataModel.getUserPoints(context));
+	        	
 				finish();
 			}
 		});

@@ -48,6 +48,7 @@ public class RewardsFragment extends Fragment {
     	mode = settings.getString(MODE);
         activity = this.getActivity();
         context = activity.getApplicationContext();
+        // ADDED
         
     	View rootView, rowView = null;
 
@@ -78,7 +79,7 @@ public class RewardsFragment extends Fragment {
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
-        
+        updateUserPoints();
         return rootView;
     }
     
@@ -92,6 +93,14 @@ public class RewardsFragment extends Fragment {
 	    	noRewards.setVisibility(View.GONE);
     	}
     	adapter.updateList(list);
+    }
+    
+    public void updateUserPoints() {
+    	int userPoints = DataModel.getUserPoints(context);
+    	
+    	final TextView points = (TextView) thisView.findViewById(R.id.numPoints);
+    	points.setText("You have " + userPoints + " points!");
+    	
     }
     
 
