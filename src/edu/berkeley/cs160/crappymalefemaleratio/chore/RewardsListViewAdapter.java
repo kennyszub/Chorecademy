@@ -32,6 +32,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	private Context context;
 	private ListView lView;
 	int current_position;
+	RewardsFragment rewardsFragment;
  
     public RewardsListViewAdapter(Activity activity, ListView l, ArrayList<HashMap<String, String>> list, String m, Context c) {
         super();
@@ -45,6 +46,10 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		return list.size();
+	}
+	
+	public void setFragment(RewardsFragment rFrag) {
+		rewardsFragment = rFrag;
 	}
 	
 
@@ -128,9 +133,11 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	        	System.out.println("REWARD: "+reward+", ID: "+ id);
 	            	        	DataModel.claimReward(context, id);
 
-	            	            // ((RewardsFragment) activity).onResume();
-	            	        	list.remove(current_position);
-	            	        	updateList(list);
+
+	            	        	rewardsFragment.onResume();
+	            	        	
+	            	        	ChildActivity childActivity = (ChildActivity) activity;
+	            	        	childActivity.refreshClaims();
 	            	        	
 	            	            dialog.dismiss();
 	            	            break;
