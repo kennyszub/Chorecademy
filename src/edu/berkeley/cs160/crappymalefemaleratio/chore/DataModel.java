@@ -263,7 +263,7 @@ public class DataModel {
 			        if (i != finishedIndex) {
 			        	updatedApprovalList.put(approvals.get(i));
 			        }
-			   } 
+			   }
 			}
 			approvals = updatedApprovalList;
 			jsonData.put("approvals", approvals);

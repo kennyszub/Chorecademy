@@ -132,6 +132,7 @@ public class RewardsListViewAdapter extends BaseAdapter {
 	            	        	list.remove(current_position);
 	            	        	updateList(list);
 	            	        	
+	            	        	
 	            	            dialog.dismiss();
 	            	            break;
 

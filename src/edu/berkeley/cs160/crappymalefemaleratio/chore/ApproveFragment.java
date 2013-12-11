@@ -36,6 +36,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ApproveFragment extends Fragment {
     private Activity activity;
@@ -121,13 +122,15 @@ public class ApproveFragment extends Fragment {
     		intent.putExtra(DESCRIPTION, itemMap.get(DESCRIPTION));
     		intent.putExtra(DATE, itemMap.get(DATE));
     		intent.putExtra(POINTS, itemMap.get(POINTS));
-    		intent.putExtra(ID, itemMap.get(ID));
-            System.out.println("CHORE: "+itemMap.get(CHORE)+", ID: "+itemMap.get(ID));
+    		intent.putExtra(ID, itemMap.get("id"));
+    		intent.putExtra("id", itemMap.get("id"));
+    		
+            System.out.println("CHORE: "+itemMap.get(CHORE)+", ID: "+itemMap.get("id"));
             
         	activity.startActivity(intent);
     	}
     }
     
-
+    
 
 }

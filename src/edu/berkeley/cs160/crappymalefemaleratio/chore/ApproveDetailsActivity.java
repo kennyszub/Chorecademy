@@ -30,6 +30,8 @@ public class ApproveDetailsActivity extends Activity {
 	public Uri ourURI;
 	Context context;
 	private long choreID;
+	private String stringedID;
+	Intent intent = getIntent();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +49,14 @@ public class ApproveDetailsActivity extends Activity {
 	    final Button approve_btn = (Button) findViewById(R.id.approveButton);
 	    approve_btn.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
+
             	 /* Need to:
             	  * 	- Add points to user
             	  * 	- Clear chore from the "approval" JSONArray
             	  */
+            	 System.out.println("Chore ID: " + stringedID);
+            	 DataModel.approveFinish(context, stringedID);
+            	 finish();
              }
 	    });
 	}
@@ -60,9 +66,7 @@ public class ApproveDetailsActivity extends Activity {
 		deny_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				TextView idView = (TextView) findViewById(R.id.choreId);
-            	Long id = Long.parseLong((String) idView.getText());
-            	System.out.println("ID: "+id+"");
+
             	
 	        	// DataModel.finishChore(context, (String) idView.getText());
 				// finish();
@@ -71,6 +75,9 @@ public class ApproveDetailsActivity extends Activity {
 	           	  * 	- Clear chore from "approval" JSONArray
 	           	  * 	- Add chore back to "chores" JSONArray
 	           	  */
+           	 System.out.println("Chore ID: " + stringedID);
+           	 DataModel.denyFinish(context, stringedID);
+           	 finish();
 			}
 		});
 	}
@@ -85,6 +92,7 @@ public class ApproveDetailsActivity extends Activity {
 		    chore_duedate = session.getString(DATE);
 		    chore_points = session.getString(POINTS);
 		    choreID = session.getLong("id");
+		    stringedID = (String) session.get("id");
 		    
 		    // Set variables to TextView
 		    TextView choreName, choreDescription, choreDuedate, chorePoints, choreIDValue;
