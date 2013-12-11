@@ -26,7 +26,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/choreDescription"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/finishedchore" />
 
     <TextView
         android:id="@+id/choreDuedate"
@@ -54,8 +54,10 @@
         style="@style/BlueStyleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/doneButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/chorePoints"
         android:text="Take Picture" />
 
     <Button
@@ -65,7 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="I&apos;m Done!" />
+        
+        android:text="I&apos;m Finished!" />
 
     <TextView
         android:id="@+id/chorePoints"

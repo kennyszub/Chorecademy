@@ -165,6 +165,12 @@ public class DataModel {
 			int removeIndex = findIndexById(context, "rewards", id);
 			JSONObject claimed_reward = rewards.getJSONObject(removeIndex);
 			
+			
+			// delete points from userPoints
+			int del_points = claimed_reward.getInt("points");
+			int current_points = jsonData.getInt("userPoints");
+			jsonData.put("userPoints", current_points - del_points);
+			
 			/* Remove element by creating new JSONArray */
 			JSONArray updatedRewards = new JSONArray();  
 			int rewardsLength = rewards.length();

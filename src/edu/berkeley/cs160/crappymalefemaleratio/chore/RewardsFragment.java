@@ -217,17 +217,17 @@ public class RewardsFragment extends Fragment {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     		
-    		JSONArray rewards = DataModel.getRewards(activity);
-    		JSONObject rewardObject;
-
-    		HashMap<String, String> itemMap = list.get(position);
-    		
-    		Intent intent = new Intent(activity, SetReward.class);
-    		intent.putExtra(REWARD, itemMap.get(REWARD));
-    		intent.putExtra(VALUE, itemMap.get(VALUE));
-    		intent.putExtra(ID, itemMap.get(ID));
-
-    		activity.startActivity(intent);
+//    		JSONArray rewards = DataModel.getRewards(activity);
+//    		JSONObject rewardObject;
+//
+//    		HashMap<String, String> itemMap = list.get(position);
+//    		
+//    		Intent intent = new Intent(activity, SetReward.class);
+//    		intent.putExtra(REWARD, itemMap.get(REWARD));
+//    		intent.putExtra(VALUE, itemMap.get(VALUE));
+//    		intent.putExtra(ID, itemMap.get(ID));
+//
+//    		activity.startActivity(intent);
     	}
     }
     

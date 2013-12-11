@@ -65,6 +65,7 @@ public class ChoreDetailsActivity extends Activity {
 	
 	private void addListenerOnDoneButton() {
 		final Button doneButton = (Button) findViewById(R.id.doneButton);
+		
 		doneButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -158,9 +159,9 @@ public class ChoreDetailsActivity extends Activity {
         		//System.out.println("here2");
         		//Uri ourURI = data.getData();
         		
-        		Toast.makeText(this, "Image saved to:\n" +
-                        ourURI, Toast.LENGTH_LONG).show();
-            	
+        		//Toast.makeText(this, "Image saved to:\n" +
+                //        ourURI, Toast.LENGTH_LONG).show();
+        		
         		DataModel.addURL(this, choreID, ourURI.toString());
             	showPicture();
                 //System.out.println(data.toString());
@@ -173,14 +174,22 @@ public class ChoreDetailsActivity extends Activity {
     public void showPicture() {
     	ImageView choreImage = (ImageView) findViewById(R.id.chorePicture);
     	JSONArray chores = DataModel.getChores(context);
+    	System.out.println("chore ID: "+ choreID);
     	int ourIndex = DataModel.findIndexById(context, "chores", Long.toString(choreID));
     	try {
     		//if chores
+    		Button doneButton = (Button)findViewById(R.id.doneButton);
     		JSONObject chore = chores.getJSONObject(ourIndex);
     		if (chore.has("url")) {
+    			
+        		doneButton.setBackgroundResource(R.drawable.red_button);
+        		doneButton.setEnabled(true);
     			String choreURI = chore.getString("url");
         		ourURI = Uri.parse(choreURI);
         		choreImage.setImageURI(ourURI);
+    		} else {
+    			doneButton.setBackgroundResource(R.drawable.gray_button);
+    			doneButton.setEnabled(false);
     		}
     		
     	} catch (JSONException e) {

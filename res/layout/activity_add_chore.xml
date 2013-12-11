@@ -50,8 +50,7 @@
         android:layout_below="@+id/Date"
         android:layout_toLeftOf="@+id/dueDateButton"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-         />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
         android:id="@+id/addChore"
@@ -116,9 +115,9 @@
         style="@style/BlueStyleButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-22dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Date"
+        android:layout_marginTop="-22dp"
         android:text="Set Due Date" />
 
     <TextView
@@ -139,8 +138,8 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="-22dp"
         android:layout_below="@+id/pointText"
+        android:layout_marginTop="-22dp"
         android:text="Set Points" />
 
 </RelativeLayout>

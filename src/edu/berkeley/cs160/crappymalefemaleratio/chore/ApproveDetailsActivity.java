@@ -9,6 +9,10 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -42,6 +46,7 @@ public class ApproveDetailsActivity extends Activity {
 		setTextValues();
 		denyListener();
 		approveListener();
+		showPicture();
 
 	}
 	private void approveListener(){
@@ -175,9 +180,32 @@ public class ApproveDetailsActivity extends Activity {
     }
     
     public void showPicture() {
-    	ImageView choreImage = (ImageView) findViewById(R.id.chorePicture);
+    	//ImageView choreImage = (ImageView) findViewById(R.id.chorePicture);
     	
-    	choreImage.setImageURI(ourURI);
+    	//choreImage.setImageURI(ourURI);
+    	System.out.println("showing approval picture: ");
+    	ImageView choreImage = (ImageView) findViewById(R.id.chorePicture);
+    	JSONArray approvals = DataModel.getApprovals(context);
+    	System.out.println("chore id: "+ stringedID);
+    	System.out.println(approvals);
+    	int ourIndex = DataModel.findIndexById(context, "approvals", stringedID);
+    	try {
+    		//if chores
+    		System.out.println("in try, index: " + ourIndex);
+    		JSONObject approval = approvals.getJSONObject(ourIndex);
+    		System.out.println("got chore");
+    		if (approval.has("url")) {
+    			System.out.println("in has");
+    			String choreURI = approval.getString("url");
+        		ourURI = Uri.parse(choreURI);
+        		choreImage.setImageURI(ourURI);
+    		}
+    		
+    	} catch (JSONException e) {
+    		System.err.println("ERROR: Failed to index into JSONArray In Chore Details: " + e.getMessage());
+    		System.exit(1);
+    		//return 999;
+    	}
     }
 	
 	@Override
