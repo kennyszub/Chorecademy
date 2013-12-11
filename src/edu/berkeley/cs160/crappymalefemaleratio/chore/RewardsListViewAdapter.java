@@ -147,6 +147,8 @@ public class RewardsListViewAdapter extends BaseAdapter {
 
 
 	            	        	rewardsFragment.onResume();
+	            	        	rewardsFragment.updateUserPoints();
+	            	        	rewardsFragment.generateRewardBar(rewardsFragment.thisView);
 	            	        	
 	            	        	ChildActivity childActivity = (ChildActivity) activity;
 	            	        	childActivity.refreshClaims();

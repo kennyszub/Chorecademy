@@ -35,7 +35,7 @@ public class RewardsFragment extends Fragment {
     private String mode;
     RewardsListViewAdapter adapter;
     Context context;
-    private View thisView;
+    public View thisView;
     
 	public RewardsFragment() {
 	}
@@ -114,7 +114,7 @@ public class RewardsFragment extends Fragment {
     	});
     }
     
-    private void generateRewardBar(View v){
+    public void generateRewardBar(View v){
     	ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.RewardBar);
 		TextView nextReward = (TextView) v.findViewById(R.id.RewardBarItem);
 		int userPoints = DataModel.getUserPoints(context);
