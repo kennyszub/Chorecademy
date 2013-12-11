@@ -5,6 +5,33 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".RewardsFragment"
 >
+    <TextView
+        android:id="@+id/RewardBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="6dp"
+        android:text="Points to Next Reward:"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="17dip" />
+    
+    <ProgressBar
+	    android:id="@+id/RewardBar"
+	    style="?android:attr/progressBarStyleHorizontal"
+	    android:layout_width="300dp"
+	    android:layout_height="wrap_content"
+        android:layout_below="@+id/RewardBarTitle"
+	    android:indeterminate="false"
+	    android:maxHeight="17dip"
+	    android:minHeight="17dip"
+	    android:layout_centerInParent="true"
+		android:layout_centerVertical="true"
+		android:layout_centerHorizontal="true"
+	    android:progress="50"
+	    android:progressDrawable="@drawable/rewardbar" />
     
     <TextView
         android:id="@+id/RewardBarItem"
@@ -39,42 +66,5 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
     >
     </ListView>
-
-    <TextView
-        android:id="@+id/RewardBarTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/RewardBar"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="57dp"
-        android:text="Progress to Next Reward:"
-        android:textColor="@color/DodgerBlue"
-        android:textSize="17dip" />
-
-    <ProgressBar
-        android:id="@+id/RewardBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/RewardBarTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:indeterminate="false"
-        android:maxHeight="17dip"
-        android:minHeight="17dip"
-        android:progress="50"
-        android:progressDrawable="@drawable/rewardbar" />
-
-    <TextView
-        android:id="@+id/numPoints"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/RewardBarTitle"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="21dp"
-        android:text="You have 10 points "
-        android:textColor="@color/OrangeRed"
-        android:textSize="20dip"
-        android:textStyle="bold" />
 
 </RelativeLayout>
