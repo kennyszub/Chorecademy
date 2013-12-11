@@ -8,6 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddChoreActivity" >
 
+    <ImageView
+        android:id="@+id/titleReward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/title_reward" />
+    
     <Button
         android:id="@+id/addReward"
         style="@style/BlueStyleButton"
@@ -18,75 +26,79 @@
         android:layout_alignParentRight="true"
         android:text="Add this Reward" 
         android:onClick="rewardSave" />
+    
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/reward_name"
+        android:layout_below="@+id/reward_name"
+        android:text="Reward Details:"
+        android:textSize="20sp"
+        android:textColor="@color/DodgerBlue"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/reward_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/addReward"
-        android:layout_alignLeft="@+id/addReward"
-        android:layout_marginBottom="76dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/TextView03"
         android:ems="10"
-        android:hint="Enter details here"
-        android:textColor="@color/black"
-        android:textColorHint="@color/LightSlateGray" />
-
-    <TextView
-        android:id="@+id/TextView03"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/reward_details"
-        android:layout_alignLeft="@+id/reward_details"
-        android:text="Reward Details"
+        android:hint="Brand new, black model!"
         android:textColor="@color/DodgerBlue"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
+        android:textColorHint="@color/gray" />
+    
+    
     <TextView
         android:id="@+id/choreName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextView03"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="34dp"
-        android:text="Reward Name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/titleReward"
+        android:text="Reward Name:"
+        android:textSize="20sp"
         android:textColor="@color/DodgerBlue"
-        android:textSize="30sp"
         android:textStyle="bold" />
-
+    
     <TextView
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/reward_cost"
-        android:layout_below="@+id/reward_name"
-        android:layout_marginTop="22dp"
-        android:text="Reward Points"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/reward_details"
+        android:text="Reward Points:"
+        android:textSize="20sp"
         android:textColor="@color/DodgerBlue"
-        android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/reward_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/TextView03"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/TextView01"
         android:ems="10"
-        android:hint="Enter points required"
-        android:textColor="@color/black"
-        android:textColorHint="@color/LightSlateGray" />
-
+        android:hint="Enter Reward Value!"
+        android:textColor="@color/DodgerBlue"
+        android:textColorHint="@color/gray" />
+    
+    
     <EditText
         android:id="@+id/reward_name"
+        style="@color/BlueViolet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/choreName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/choreName"
         android:ems="10"
-        android:hint="Enter reward name!"
-        android:textColor="@color/black"
-        android:textColorHint="@color/LightSlateGray" >
+        android:hint="Playstation 3"
+        android:textColor="@color/DodgerBlue"
+        android:textColorHint="@color/gray" >
 
         <requestFocus />
     </EditText>
