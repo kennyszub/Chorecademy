@@ -136,7 +136,7 @@ public class ClaimsFragment extends Fragment {
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		
+    		adapter.updateList(list);
     	}
     }
     
