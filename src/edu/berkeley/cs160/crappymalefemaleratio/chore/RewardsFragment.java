@@ -66,6 +66,7 @@ public class RewardsFragment extends Fragment {
         if(mode.equals(CHILD)){
     		/* Modify Reward Bar */
     		generateRewardBar(rootView);
+        	updateUserPoints();
         }
         /* Display default "No Rewards" image if no rewards */
         if(list.size() == 0){
@@ -94,7 +95,13 @@ public class RewardsFragment extends Fragment {
     	adapter.updateList(list);
     }
     
-
+    public void updateUserPoints() {
+    	int userPoints = DataModel.getUserPoints(context);
+    	
+    	final TextView points = (TextView) thisView.findViewById(R.id.numPoints);
+    	points.setText("You have " + userPoints + " points!");
+    	
+    }
     
     private void addListenerOnAddChoreButton(View rootView) {
     	final Button addRewardButton = (Button) rootView.findViewById(R.id.addRewardButton);
