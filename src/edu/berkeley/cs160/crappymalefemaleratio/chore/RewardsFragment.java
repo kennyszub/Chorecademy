@@ -48,7 +48,6 @@ public class RewardsFragment extends Fragment {
     	mode = settings.getString(MODE);
         activity = this.getActivity();
         context = activity.getApplicationContext();
-        // ADDED
         
     	View rootView, rowView = null;
 
@@ -67,8 +66,7 @@ public class RewardsFragment extends Fragment {
         if(mode.equals(CHILD)){
     		/* Modify Reward Bar */
     		generateRewardBar(rootView);
-            updateUserPoints();
-
+        	updateUserPoints();
         }
         /* Display default "No Rewards" image if no rewards */
         if(list.size() == 0){
@@ -81,6 +79,7 @@ public class RewardsFragment extends Fragment {
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
+        
         return rootView;
     }
     
@@ -103,8 +102,6 @@ public class RewardsFragment extends Fragment {
     	points.setText("You have " + userPoints + " points!");
     	
     }
-    
-
     
     private void addListenerOnAddChoreButton(View rootView) {
     	final Button addRewardButton = (Button) rootView.findViewById(R.id.addRewardButton);

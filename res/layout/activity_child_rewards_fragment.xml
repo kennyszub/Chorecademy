@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="75dp"
         android:layout_below="@+id/RewardBarItem"
         android:visibility="gone"
         android:src="@drawable/norewards" />
