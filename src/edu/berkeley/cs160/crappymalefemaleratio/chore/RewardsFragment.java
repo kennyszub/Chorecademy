@@ -67,6 +67,8 @@ public class RewardsFragment extends Fragment {
         if(mode.equals(CHILD)){
     		/* Modify Reward Bar */
     		generateRewardBar(rootView);
+            updateUserPoints();
+
         }
         /* Display default "No Rewards" image if no rewards */
         if(list.size() == 0){
@@ -79,7 +81,6 @@ public class RewardsFragment extends Fragment {
         lview.setAdapter(adapter);
         lview.setOnItemClickListener(new ItemClickListener());
 
-        updateUserPoints();
         return rootView;
     }
     
