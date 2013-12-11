@@ -82,6 +82,18 @@ public class DataModel {
 	    	return null;
 	    }
 	}
+	public static JSONArray getApprovals(Context context) {
+		try {
+	        JSONObject jsonData = getJSON(context);
+	        System.out.println(jsonData.toString());
+	        JSONArray approvals = jsonData.getJSONArray("approvals");
+	        return approvals;
+		} catch(JSONException e) {
+	    	System.err.println("ERROR: Failed to get approval: " + e.getMessage());
+	    	System.exit(1);
+	    	return null;
+	    }
+	}
 
 	public static JSONArray getClaims(Context context) {
 		try {
@@ -167,20 +179,41 @@ public class DataModel {
 			jsonData.put("rewards", rewards);
 			claims.put(claimed_reward);
 	        saveJSON(context, jsonData);
-			/*
-			JSONArray rewardsMinusOne = new JSONArray();
-			for (int i = 0; i < rewards.length(); i++) {
-				if (rewards.getJSONObject(i).getString(reward_name).equals(reward_name))
-				rewardsMinusOne.put(rewards.getJSONObject(i));
-			}
-			jsonData.put("rewards", rewardsMinusOne);
-			claims.put(claimed_reward);
-			*/
 		} catch(JSONException e) {
     		System.err.println("ERROR: Failed to claim reward: " + e.getMessage());
     		System.exit(1);
 		}
 	}
+	
+
+	public static void finishChore(Context context, String id) {
+		try {
+			JSONObject jsonData = getJSON(context);
+			JSONArray chores = jsonData.getJSONArray("chores");
+			JSONArray approvals = jsonData.getJSONArray("approvals");
+			int removeIndex = findIndexById(context, "chores", id);
+			JSONObject finished_chore = chores.getJSONObject(removeIndex);
+			
+			/* Remove element by creating new JSONArray */
+			JSONArray updatedChores = new JSONArray();  
+			int rewardsLength = chores.length();
+			if(chores != null) { 
+			   for (int i=0;i<rewardsLength;i++) { 
+			        if (i != removeIndex) {
+			        	updatedChores.put(chores.get(i));
+			        }
+			   } 
+			}
+			chores = updatedChores;
+			jsonData.put("chores", chores);
+			approvals.put(finished_chore);
+	        saveJSON(context, jsonData);
+		} catch(JSONException e) {
+    		System.err.println("ERROR: Failed to finish chore: " + e.getMessage());
+    		System.exit(1);
+		}
+	}
+	
 	/* Takes id of chore object, and url of picture, and adds the url to that chore object. */
 	public static void addURL(Context context, long id, String url) {
 		try {
@@ -223,11 +256,13 @@ public class DataModel {
 				 JSONArray rewards = new JSONArray();
 				 JSONArray chores = new JSONArray();
 				 JSONArray claims = new JSONArray();
+				 JSONArray approvals = new JSONArray();
 				 int userPoints = 0;
 				 
 				 newJson.put("rewards", rewards);
 				 newJson.put("chores", chores);
 				 newJson.put("claims", claims);
+				 newJson.put("approvals", approvals);
 				 newJson.put("userPoints", userPoints);
 				 return newJson;
 			 } else {

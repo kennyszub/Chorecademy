@@ -3,6 +3,7 @@ package edu.berkeley.cs160.crappymalefemaleratio.chore;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHILD;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CHORE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DATE;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MILLIS;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
@@ -12,7 +13,14 @@ import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.berkeley.cs160.crappymalefemaleratio.chore.ChoresFragment.MapComparator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -77,26 +85,26 @@ public class ApproveFragment extends Fragment {
     /** Populate list items. */
     private void populateList() {
         list = new ArrayList<HashMap<String, String>>();
+
+        JSONArray approvals = DataModel.getApprovals(activity);
+        JSONObject approveObject;
         
-        // TEMP VALUES
-        
-        // TODO temp hack to remove laundry
-        Bundle settings = this.getArguments();
-        if (settings.getString("Laundry") == null) {
-	    	HashMap<String, String> laundry = new HashMap<String, String>();
-	    	laundry.put(CHORE,"Do the Laundry");
-	    	laundry.put(DESCRIPTION, "Wash your clothes, put them in the dryer, and fold them.");
-	        laundry.put(DATE, "Today");
-	        laundry.put(POINTS, "5");
-	        list.add(laundry);
-        }
-        
-        HashMap<String, String> dishes = new HashMap<String, String>();
-    	dishes.put(CHORE,"Wash the dishes");
-    	dishes.put(DESCRIPTION, "Clean food off the dishes and put in dishwasher");
-        dishes.put(DATE, "Tomorrow");
-        dishes.put(POINTS, "3");
-        list.add(dishes);
+        try {
+	        for (int i = 0; i < approvals.length(); i++) {
+	        	approveObject = approvals.getJSONObject(i);
+	        	HashMap<String, String> chore = new HashMap<String, String>();
+	        	chore.put(CHORE, approveObject.getString("name"));
+	        	chore.put(DESCRIPTION, approveObject.getString("description"));
+	        	chore.put(DATE, approveObject.getString("date"));
+	        	chore.put(POINTS, approveObject.getString("points"));
+	        	chore.put(MILLIS, approveObject.getString("millis"));
+	        	chore.put("id", approveObject.getString("id"));
+	        	list.add(chore);
+	        }
+        } catch (JSONException e) {
+        	System.err.println("ERROR: Failed to populate list: " + e.getMessage());
+	    	System.exit(1);
+        }        
 
     }
     
