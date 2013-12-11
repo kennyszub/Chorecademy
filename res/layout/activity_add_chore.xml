@@ -8,6 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AddChoreActivity" >
 
+    <ImageView
+        android:id="@+id/titleChore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/title_chore" />
+    
     <EditText
         android:id="@+id/editChore"
         style="@color/BlueViolet"
@@ -27,9 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/titleChore"
         android:text="Chore Name:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp"
         android:textColor="@color/DodgerBlue"
         android:textStyle="bold" />
 
@@ -74,7 +82,7 @@
         android:layout_alignLeft="@+id/editChore"
         android:layout_below="@+id/editChore"
         android:text="Chore Details:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp"
         android:textColor="@color/DodgerBlue"
         android:textStyle="bold" />
 
@@ -86,7 +94,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Points"
         android:ems="10"
-        android:hint="Make your bed and put your toys away"
+        android:hint="Make your bed"
         android:textColor="@color/DodgerBlue"
         android:textColorHint="@color/gray" />
 
@@ -98,6 +106,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/editDetails"
         android:text="Due Date:"
+        android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/DodgerBlue"
         android:textStyle="bold" />
@@ -105,11 +114,12 @@
     <Button
         android:id="@+id/dueDateButton"
         style="@style/BlueStyleButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-22dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Date"
-        android:text="Pick Due Date" />
+        android:text="Set Due Date" />
 
     <TextView
         android:id="@+id/pointText"
@@ -118,17 +128,19 @@
         android:layout_alignLeft="@+id/dueDateText"
         android:layout_below="@+id/dueDateText"
         android:text="Points: "
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
         android:textColor="@color/DodgerBlue"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/pointButton"
         style="@style/BlueStyleButton"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="-22dp"
         android:layout_below="@+id/pointText"
-        android:text="Choose Point Value" />
+        android:text="Set Points" />
 
 </RelativeLayout>
