@@ -132,17 +132,23 @@ public class ChoresFragment extends Fragment {
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		ViewHolder holder = (ViewHolder) view.getTag();
+    		if (mode.equals(CHILD)) {
+    			ViewHolder holder = (ViewHolder) view.getTag();
+        		
+        		
+    			HashMap<String, String> itemMap = list.get(position);
+        		Intent intent = new Intent(activity, ChoreDetailsActivity.class);
+        		intent.putExtra(CHORE, itemMap.get(CHORE));
+        		intent.putExtra(DESCRIPTION, itemMap.get(DESCRIPTION));
+        		intent.putExtra(DATE, itemMap.get(DATE));
+        		intent.putExtra(POINTS, itemMap.get(POINTS));
+        		intent.putExtra("id", holder.id);
+                
+            	activity.startActivity(intent);
+    		}
     		
-			HashMap<String, String> itemMap = list.get(position);
-    		Intent intent = new Intent(activity, ChoreDetailsActivity.class);
-    		intent.putExtra(CHORE, itemMap.get(CHORE));
-    		intent.putExtra(DESCRIPTION, itemMap.get(DESCRIPTION));
-    		intent.putExtra(DATE, itemMap.get(DATE));
-    		intent.putExtra(POINTS, itemMap.get(POINTS));
-    		intent.putExtra("id", holder.id);
-            
-        	activity.startActivity(intent);
+    		
+    		
 
     		
     	}
