@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/childDetails"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ApproveDetailsActivity" >
+
+    <TextView
+        android:id="@+id/chorePoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/choreDuedate"
+        android:layout_below="@+id/choreDuedate"
+        android:layout_marginTop="20dp"
+        android:text="10 points"
+        android:textColor="@color/OrangeRed"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/choreDuedate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/choreName"
+        android:layout_below="@+id/choreName"
+        android:text="Due Tuesday"
+        android:textColor="@color/LightSlateGray"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/choreId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Id"
+        android:visibility="gone"
+        android:textColor="@color/LightSlateGray"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:id="@+id/choreDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/chorePoints"
+        android:layout_below="@+id/chorePoints"
+        android:layout_marginTop="38dp"
+        android:text="Put your clothes in the washer, and dry and fold them."
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/denyButton"
+        style="@style/RedStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/approveButton"
+        android:layout_alignBottom="@+id/approveButton"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/approveButton"
+        android:text="Deny" />
+
+    <Button
+        android:id="@+id/approveButton"
+        style="@style/BlueStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/choreDescription"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:text="Approve" />
+
+    <TextView
+        android:id="@+id/choreName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Do the Laundry"
+        android:textColor="@color/DodgerBlue"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/chorePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/doneButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/choreDescription"
+        android:src="@drawable/ic_launcher" />
+    
+</RelativeLayout>

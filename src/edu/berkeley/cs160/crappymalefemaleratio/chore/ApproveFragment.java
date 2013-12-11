@@ -7,6 +7,7 @@ import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.MODE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.POINTS;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.DESCRIPTION;
+import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.ID;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_REWARD;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_VALUE;
 import static edu.berkeley.cs160.crappymalefemaleratio.chore.Constants.Constant.CLAIMED_CLAIM;
@@ -75,9 +76,11 @@ public class ApproveFragment extends Fragment {
     public void onResume() {
     	super.onResume();
     	populateList();
+    	ImageView noApprove = (ImageView) thisView.findViewById(R.id.noApproveImage);
     	if(list.size() > 0){
-	    	ImageView noApprove = (ImageView) thisView.findViewById(R.id.noApproveImage);
 	    	noApprove.setVisibility(View.GONE);
+    	}else{
+	    	noApprove.setVisibility(View.VISIBLE);
     	}
     	adapter.updateList(list);
     }
@@ -107,14 +110,23 @@ public class ApproveFragment extends Fragment {
         }        
 
     }
-    
+
     private class ItemClickListener implements OnItemClickListener {
     	@Override
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		
+    		System.out.println("in");
+			HashMap<String, String> itemMap = list.get(position);
+    		Intent intent = new Intent(activity, ApproveDetailsActivity.class);
+    		intent.putExtra(CHORE, itemMap.get(CHORE));
+    		intent.putExtra(DESCRIPTION, itemMap.get(DESCRIPTION));
+    		intent.putExtra(DATE, itemMap.get(DATE));
+    		intent.putExtra(POINTS, itemMap.get(POINTS));
+    		intent.putExtra(ID, itemMap.get(ID));
+            System.out.println("CHORE: "+itemMap.get(CHORE)+", ID: "+itemMap.get(ID));
+            
+        	activity.startActivity(intent);
     	}
     }
-    
     
 
 
